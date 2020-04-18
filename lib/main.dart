@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'providers/auth.dart';
+import 'providers/places.dart';
 import 'screens/login_screen.dart';
 import 'screens/map_screen.dart';
 
@@ -14,6 +15,10 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => Auth()),
+        ChangeNotifierProxyProvider<Auth, Places>(
+          create: (_) => Places(),
+          update: (_, auth, __) => Places(auth: auth),
+        )
       ],
       child: Consumer<Auth>(
         builder: (context, auth, _) => MaterialApp(
