@@ -83,18 +83,17 @@ class PhoneNumberCard extends StatelessWidget {
                       )
                     ],
                   ),
-                  showError
-                      ? Padding(
-                          padding: const EdgeInsets.only(left: 15),
-                          child: Text(
-                            "Musisz zaakceptować regulamin.",
-                            style: Theme.of(context)
-                                .textTheme
-                                .caption
-                                .copyWith(color: Theme.of(context).errorColor),
-                          ),
-                        )
-                      : Container()
+                  if (showError)
+                    Padding(
+                      padding: const EdgeInsets.only(left: 15),
+                      child: Text(
+                        "Musisz zaakceptować regulamin.",
+                        style: Theme.of(context)
+                            .textTheme
+                            .caption
+                            .copyWith(color: Theme.of(context).errorColor),
+                      ),
+                    )
                 ],
               ),
             ),

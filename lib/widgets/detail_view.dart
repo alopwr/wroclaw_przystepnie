@@ -5,7 +5,7 @@ import 'dash.dart';
 class DetailView extends StatelessWidget {
   DetailView(this.scrollController);
 
-  ScrollController scrollController;
+  final ScrollController scrollController;
 
   @override
   Widget build(BuildContext context) {
