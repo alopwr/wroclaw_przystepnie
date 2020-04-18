@@ -9,6 +9,8 @@
         android:name="io.flutter.app.FlutterApplication"
         android:label="wroclaw_przystepnie"
         android:icon="@mipmap/ic_launcher">
+         <meta-data android:name="com.google.android.geo.API_KEY"
+               android:value="AIzaSyAiRHjfC2D980uLilAlx29a9m0kWQU0Ns4"/>
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"

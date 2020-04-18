@@ -51,7 +51,7 @@ class Auth with ChangeNotifier {
 
   Future<bool> sendPhoneNumber(String phoneNum, BuildContext context) async {
     var url =
-        "https://wroclaw-przystepnie.herokuapp.com/api/v0/auth/phone/generate/";
+        "https://wroclaw-przystepnie.herokuapp.com/v0/auth/phone/generate/";
     var hash = await SmsAutoFill().getAppSignature;
     // var response = await http.post(
     //   url,
@@ -84,7 +84,7 @@ class Auth with ChangeNotifier {
 
   Future<bool> validatePhoneNumber(String smsCode) async {
     var url =
-        "https://wroclaw-przystepnie.herokuapp.com/api/v0/auth/phone/validate/";
+        "https://wroclaw-przystepnie.herokuapp.com/v0/auth/phone/validate/";
     // var response = await http.post(
     //   url,
     //   headers: {

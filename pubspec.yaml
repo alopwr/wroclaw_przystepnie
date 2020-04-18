@@ -29,6 +29,7 @@ dependencies:
   sms_autofill: 1.2.0
   url_launcher: ^5.4.2
   sliding_up_panel: ^1.0.2
+  google_maps_flutter: ^0.5.26
 
 
 

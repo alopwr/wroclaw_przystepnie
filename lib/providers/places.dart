@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 import '../helpers/http_helper.dart';
 import '../screens/map_screen.dart';
@@ -15,7 +16,13 @@ class Places with ChangeNotifier {
   List<Place> _places = [];
   List<int> _visiblePlacesIds;
 
+  GoogleMapController googleMapsController;
+
   List<Place> get places => [..._places];
+  // Map<MarkerId, Marker> markers = <MarkerId, Marker>{};
+
+  Set<Marker> get markers =>
+      visiblePlaces.map((placeElement) => placeElement.marker).toSet();
 
   List<Place> get visiblePlaces {
     if (_visiblePlacesIds == null)
@@ -26,14 +33,12 @@ class Places with ChangeNotifier {
           .toList();
   }
 
-  Future<void> fetchPlaces() async {
+  Future<void> fetchPlaces({bool rebuild = true}) async {
     var placesJson = await HttpHelper.fetchPlaces(auth.headers);
-    _places = placesJson.map((jsonMap) => Place.fromJson(jsonMap));
-  }
-
-  Future<void> refreshPlaces() async {
-    await fetchPlaces();
-    notifyListeners();
+    _places = placesJson
+        .map((jsonMap) => Place.fromJson(jsonMap, showDetails))
+        .toList();
+    if (rebuild) notifyListeners();
   }
 
   void setVisiblePlacesFilter(List<int> visibleIds) {
@@ -65,5 +70,9 @@ class Places with ChangeNotifier {
   Place get activePlace {
     if (_activePlaceId == null) return null;
     return places.firstWhere((element) => element.id == _activePlaceId);
+  }
+
+  void onMapCreated(GoogleMapController controller) {
+    googleMapsController = controller;
   }
 }
