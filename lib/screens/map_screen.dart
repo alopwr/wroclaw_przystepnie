@@ -6,6 +6,7 @@ import 'package:sliding_up_panel/sliding_up_panel.dart';
 
 import '../providers/places.dart';
 import '../widgets/detail_view.dart';
+import '../widgets/drawer.dart';
 import '../widgets/map.dart';
 
 final appBar = AppBar(title: const Text("Wrocław Przystępnie"));
@@ -15,6 +16,7 @@ class MapScreenLoader extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: appBar,
+      drawer: MyDrawer(),
       body: FutureBuilder(
         future: Provider.of<Places>(context, listen: false).fetchPlaces(),
         builder: (context, dataSnapshot) => Stack(

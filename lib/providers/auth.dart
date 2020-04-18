@@ -114,5 +114,6 @@ class Auth with ChangeNotifier {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     token = null;
     await prefs.clear();
+    notifyListeners();
   }
 }
