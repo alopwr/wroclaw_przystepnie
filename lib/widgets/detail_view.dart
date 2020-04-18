@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
+import '../providers/places.dart';
 import 'dash.dart';
 
 class DetailView extends StatelessWidget {
@@ -9,6 +11,9 @@ class DetailView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var places = Provider.of<Places>(context);
+    var activePlace = places.activePlace;
+    if (activePlace == null) return Container();
     return MediaQuery.removePadding(
         context: context,
         removeTop: true,
@@ -22,7 +27,7 @@ class DetailView extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 Text(
-                  "Explore Pittsburgh",
+                 activePlace.name,
                   style: const TextStyle(
                     fontWeight: FontWeight.normal,
                     fontSize: 24.0,

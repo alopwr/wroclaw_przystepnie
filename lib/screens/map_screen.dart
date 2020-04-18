@@ -118,20 +118,19 @@ class MapScreenState extends State<MapScreen> {
                   _collapsedPanelSituationFabHeight;
           }),
         ),
-
         // the fab
-        Positioned(
-          right: 20.0,
-          bottom: _fabHeight,
-          child: FloatingActionButton(
-            child: const Icon(
-              Icons.gps_fixed,
-              color: Colors.blue,
-            ),
-            onPressed: () {},
-            backgroundColor: Colors.white,
-          ),
-        ),
+        // Positioned(
+        //   right: 20.0,
+        //   bottom: _fabHeight,
+        //   child: FloatingActionButton(
+        //     child: const Icon(
+        //       Icons.gps_fixed,
+        //       color: Colors.blue,
+        //     ),
+        //     onPressed: () {},
+        //     backgroundColor: Colors.white,
+        //   ),
+        // ),
 
         //the SlidingUpPanel Title
         // Positioned(

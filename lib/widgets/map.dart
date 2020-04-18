@@ -13,9 +13,13 @@ class MapWidget extends StatelessWidget {
       onTap: (_) {
         places.hideDetails();
       },
+      buildingsEnabled: true,
+      compassEnabled: false,
+      mapToolbarEnabled: false,
+      zoomControlsEnabled: false,
       initialCameraPosition: const CameraPosition(
-        target: LatLng(10.283203123568985, 4.30259107652187),
-        zoom: 7.0,
+        target: LatLng(51.106715, 17.031645),
+        zoom: 15,
       ),
     );
     // onTap: () => places.showDetails(1),
