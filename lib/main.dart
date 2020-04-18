@@ -28,7 +28,7 @@ class MyApp extends StatelessWidget {
               ? Scaffold(
                   appBar: AppBar(title: const Text("Wrocław Przystępnie")),
                   body: const Center(child: CircularProgressIndicator()))
-              : auth.isAuthed ? MapScreen() : LoginScreen(),
+              : auth.isAuthed ? MapScreenLoader() : LoginScreen(),
           routes: {},
         ),
       ),
