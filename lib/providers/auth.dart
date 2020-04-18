@@ -24,7 +24,8 @@ class Auth with ChangeNotifier {
   }
 
   Map<String, String> get headers {
-    if (isAuthed)
+    // if (isAuthed)
+    if (false)
       return Map<String, String>.from({
         "Content-Type": "application/json",
         "Authorization": "Token $token",
