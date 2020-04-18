@@ -22,7 +22,7 @@ class Media {
     this.type = MediaType.image;
   }
 
-  String id;
+  int id;
   String url;
   MediaType type;
 }
@@ -46,7 +46,7 @@ class Place with ChangeNotifier {
         .toList();
   }
 
-  String id;
+  int id;
   String name;
   String description;
   Location location;

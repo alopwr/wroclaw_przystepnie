@@ -1,8 +1,12 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
-import 'package:wroclaw_przystepnie/helpers/http_helper.dart';
 
+import '../helpers/http_helper.dart';
+import '../screens/map_screen.dart';
 import 'auth.dart';
 import 'place.dart';
+
+final mapScreenKey = GlobalKey<MapScreenState>();
 
 class Places with ChangeNotifier {
   Places({this.auth});
@@ -40,5 +44,26 @@ class Places with ChangeNotifier {
   void clearFilter() {
     _visiblePlacesIds = null;
     notifyListeners();
+  }
+
+  int _activePlaceId;
+
+  bool get showDetailView => _activePlaceId != null;
+
+  void showDetails(int id) {
+    if (id == null) return;
+    _activePlaceId = id;
+    mapScreenKey.currentState?.showPanel();
+    notifyListeners();
+  }
+
+  void hideDetails() {
+    mapScreenKey.currentState?.hidePanel();
+    _activePlaceId = null;
+  }
+
+  Place get activePlace {
+    if (_activePlaceId == null) return null;
+    return places.firstWhere((element) => element.id == _activePlaceId);
   }
 }

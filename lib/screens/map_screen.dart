@@ -16,10 +16,10 @@ class MapScreenLoader extends StatelessWidget {
     return Scaffold(
       appBar: appBar,
       body: FutureBuilder(
-        future: Provider.of<Places>(context).fetchPlaces(),
+        future: Provider.of<Places>(context, listen: false).fetchPlaces(),
         builder: (context, dataSnapshot) => Stack(
           children: <Widget>[
-            MapScreen(),
+            MapScreen(mapScreenKey),
             if (dataSnapshot.connectionState == ConnectionState.waiting)
               ModalBarrier(
                 color: Colors.black38,
@@ -43,31 +43,50 @@ class MapScreenLoader extends StatelessWidget {
 }
 
 class MapScreen extends StatefulWidget {
+  MapScreen(key) : super(key: key);
+
   @override
-  _MapScreenState createState() => _MapScreenState();
+  MapScreenState createState() => MapScreenState();
 }
 
-class _MapScreenState extends State<MapScreen> {
-  final _initFabHeight = 120.0;
+class MapScreenState extends State<MapScreen> {
+  double _fabHeight;
+  final _collapsedPanelSituationFabHeight = 120.0;
+  final _hiddenPanelSituationFabHeight = 20.0;
 
   final panelController = PanelController();
 
-  double _fabHeight = 20;
   double _panelHeightOpen;
   double _panelHeightClosed = 0;
-  double _normalPanelHeightClosed = 95.0;
+  final double _normalPanelHeightClosed = 95.0;
 
-  void showDetail() {
+  bool isPanelHiding = true;
+
+  @override
+  void initState() {
+    super.initState();
+    _fabHeight = _hiddenPanelSituationFabHeight;
+  }
+
+  void showPanel() {
+    isPanelHiding = false;
     if (_panelHeightClosed == 0)
       setState(() {
         _panelHeightClosed = _normalPanelHeightClosed;
       });
     else
       panelController.show();
+    setState(() {
+      _fabHeight = _collapsedPanelSituationFabHeight;
+    });
   }
 
-  hideDetail() {
+  void hidePanel() {
+    isPanelHiding = true;
     if (_panelHeightClosed != 0) panelController.hide();
+    setState(() {
+      _fabHeight = _hiddenPanelSituationFabHeight;
+    });
   }
 
   @override
@@ -78,6 +97,7 @@ class _MapScreenState extends State<MapScreen> {
         mediaQuery.padding.top;
 
     _panelHeightOpen = trueHeight - 10;
+
     return Stack(
       alignment: Alignment.topCenter,
       children: <Widget>[
@@ -88,13 +108,14 @@ class _MapScreenState extends State<MapScreen> {
           snapPoint: .7,
           parallaxEnabled: true,
           parallaxOffset: .5,
-          body: MapWidget(showDetail, hideDetail),
+          body: MapWidget(),
           panelBuilder: (sc) => DetailView(sc),
           borderRadius: BorderRadius.only(
               topLeft: Radius.circular(18.0), topRight: Radius.circular(18.0)),
           onPanelSlide: (double pos) => setState(() {
-            _fabHeight =
-                pos * (_panelHeightOpen - _panelHeightClosed) + _initFabHeight;
+            if (!isPanelHiding)
+              _fabHeight = pos * (_panelHeightOpen - _panelHeightClosed) +
+                  _collapsedPanelSituationFabHeight;
           }),
         ),
 
