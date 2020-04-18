@@ -52,26 +52,28 @@ class Auth with ChangeNotifier {
     var url =
         "https://wroclaw-przystepnie.herokuapp.com/api/v0/auth/phone/generate/";
     var hash = await SmsAutoFill().getAppSignature;
-    var response = await http.post(
-      url,
-      body: hash == null
-          ? {"phone_number": phoneNum}
-          : {"phone_number": phoneNum, "hash": hash},
-    );
-    var decoded = json.decode(response.body);
-    if (decoded['reason'] != null) {
-      if (decoded["reason"] ==
-          "you can not have more than 10 attempts per day, please try again tomorrow") {
-        validationErrorCode = 2;
-        return false;
-      }
-      if (decoded['reason']["phone_number"][0] ==
-          "The phone number entered is not valid.") {
-        validationErrorCode = 1;
-        return false;
-      }
-    }
-    // var decoded = {"pk": 1, "phone_number": phoneNum, "debug": "111111"};
+    // var response = await http.post(
+    //   url,
+    //   body: hash == null
+    //       ? {"phone_number": phoneNum}
+    //       : {"phone_number": phoneNum, "hash": hash},
+    // );
+    // var decoded = json.decode(response.body);
+    // if (decoded['reason'] != null) {
+    //   if (decoded["reason"] ==
+    //       "you can not have more than 10 attempts per day, please try again tomorrow") {
+    //     validationErrorCode = 2;
+    //     return false;
+    //   }
+    //   if (decoded['reason']["phone_number"][0] ==
+    //       "The phone number entered is not valid.") {
+    //     validationErrorCode = 1;
+    //     return false;
+    //   }
+    // }
+
+    //temporary workaround
+    var decoded = {"pk": 1, "phone_number": phoneNum, "debug": "111111"};
 
     pk = decoded['pk'].toString();
     phoneNumber = decoded["phone_number"];
@@ -82,17 +84,19 @@ class Auth with ChangeNotifier {
   Future<bool> validatePhoneNumber(String smsCode) async {
     var url =
         "https://wroclaw-przystepnie.herokuapp.com/api/v0/auth/phone/validate/";
-    var response = await http.post(
-      url,
-      headers: {
-        "Content-type": "application/json",
-      },
-      body: '{"pk": $pk, "otp": $smsCode}',
-    );
+    // var response = await http.post(
+    //   url,
+    //   headers: {
+    //     "Content-type": "application/json",
+    //   },
+    //   body: '{"pk": $pk, "otp": $smsCode}',
+    // );
 
-    var decoded = json.decode(utf8.decode(response.bodyBytes));
-    if (decoded["reason"] == "OTP doesn't exist") return false;
-    // var decoded = {"token": "token benc"};
+    // var decoded = json.decode(utf8.decode(response.bodyBytes));
+    // if (decoded["reason"] == "OTP doesn't exist") return false;
+
+    //temporary workaround
+    var decoded = {"token": "token benc"};
 
     SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.setStringList("auth", [decoded["token"], phoneNumber]);
