@@ -6,6 +6,8 @@ import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sms_autofill/sms_autofill.dart';
 
+import '../helpers/http_helper.dart';
+
 class Auth with ChangeNotifier {
   String token;
   String id;
@@ -24,8 +26,7 @@ class Auth with ChangeNotifier {
   }
 
   Map<String, String> get headers {
-    // if (isAuthed)
-    if (false)
+    if (isAuthed)
       return Map<String, String>.from({
         "Content-Type": "application/json",
         "Authorization": "Token $token",
@@ -50,31 +51,27 @@ class Auth with ChangeNotifier {
   bool get isAuthed => phoneNumber != null && token != null;
 
   Future<bool> sendPhoneNumber(String phoneNum, BuildContext context) async {
-    var url =
-        "https://wroclaw-przystepnie.herokuapp.com/v0/auth/phone/generate/";
+    var url = "$API_MASTER_URL/auth/user/";
     var hash = await SmsAutoFill().getAppSignature;
-    // var response = await http.post(
-    //   url,
-    //   body: hash == null
-    //       ? {"phone_number": phoneNum}
-    //       : {"phone_number": phoneNum, "hash": hash},
-    // );
-    // var decoded = json.decode(response.body);
-    // if (decoded['reason'] != null) {
-    //   if (decoded["reason"] ==
-    //       "you can not have more than 10 attempts per day, please try again tomorrow") {
-    //     validationErrorCode = 2;
-    //     return false;
-    //   }
-    //   if (decoded['reason']["phone_number"][0] ==
-    //       "The phone number entered is not valid.") {
-    //     validationErrorCode = 1;
-    //     return false;
-    //   }
-    // }
-
-    //temporary workaround
-    var decoded = {"pk": 1, "phone_number": phoneNum, "debug": "111111"};
+    var response = await http.post(
+      url,
+      body: hash == null
+          ? {"phone_number": phoneNum}
+          : {"phone_number": phoneNum, "hash": hash},
+    );
+    var decoded = json.decode(response.body);
+    if (decoded['reason'] != null) {
+      if (decoded["reason"] ==
+          "you can not have more than 10 attempts per day, please try again tomorrow") {
+        validationErrorCode = 2;
+        return false;
+      }
+      if (decoded['reason']["phone_number"][0] ==
+          "The phone number entered is not valid.") {
+        validationErrorCode = 1;
+        return false;
+      }
+    }
 
     pk = decoded['pk'].toString();
     phoneNumber = decoded["phone_number"];
@@ -83,21 +80,17 @@ class Auth with ChangeNotifier {
   }
 
   Future<bool> validatePhoneNumber(String smsCode) async {
-    var url =
-        "https://wroclaw-przystepnie.herokuapp.com/v0/auth/phone/validate/";
-    // var response = await http.post(
-    //   url,
-    //   headers: {
-    //     "Content-type": "application/json",
-    //   },
-    //   body: '{"pk": $pk, "otp": $smsCode}',
-    // );
+    var url = "$API_MASTER_URL/auth/validate/";
+    var response = await http.post(
+      url,
+      headers: {
+        "Content-type": "application/json",
+      },
+      body: '{"pk": $pk, "otp": $smsCode}',
+    );
 
-    // var decoded = json.decode(utf8.decode(response.bodyBytes));
-    // if (decoded["reason"] == "OTP doesn't exist") return false;
-
-    //temporary workaround
-    var decoded = {"token": "token benc"};
+    var decoded = json.decode(utf8.decode(response.bodyBytes));
+    if (decoded["reason"] == "OTP doesn't exist") return false;
 
     SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.setStringList("auth", [decoded["token"], phoneNumber]);

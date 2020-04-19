@@ -2,10 +2,12 @@ import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 
+const API_MASTER_URL = "https://wroclaw-przystepnie.herokuapp.com/v0";
+
 class HttpHelper {
   static Future<List<Map<String, dynamic>>> fetchPlaces(
       Map<String, String> headers) async {
-    var url = "https://wroclaw-przystepnie.herokuapp.com/v0/places/";
+    var url = "$API_MASTER_URL/places/";
     var response = await http.get(
       url,
       headers: headers,
