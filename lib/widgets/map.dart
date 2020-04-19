@@ -7,19 +7,25 @@ class MapWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var places = Provider.of<Places>(context);
-    return GoogleMap(
-      onMapCreated: places.onMapCreated,
-      markers: places.markers,
-      onTap: (_) {
-        places.showMenu();
-      },
-      buildingsEnabled: true,
-      compassEnabled: false,
-      mapToolbarEnabled: false,
-      zoomControlsEnabled: false,
-      initialCameraPosition: const CameraPosition(
-        target: LatLng(51.106715, 17.031645),
-        zoom: 15,
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 95),
+      child: GoogleMap(
+        onMapCreated: places.onMapCreated,
+        markers: places.markers,
+        onTap: (_) {
+          places.showMenu();
+        },
+        buildingsEnabled: true,
+        compassEnabled: true,
+        mapToolbarEnabled: true,
+        zoomControlsEnabled: false,
+        myLocationEnabled: true,
+        myLocationButtonEnabled: false,
+        padding: const EdgeInsets.only(right: 70, bottom: 17),
+        initialCameraPosition: const CameraPosition(
+          target: LatLng(51.106715, 17.031645),
+          zoom: 15,
+        ),
       ),
     );
   }

@@ -1,13 +1,13 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 
 import '../providers/places.dart';
 import '../widgets/map.dart';
 import '../widgets/slider_panel.dart';
-import '../widgets/status_blur.dart';
 
 class MapScreenLoader extends StatelessWidget {
   @override
@@ -55,6 +55,7 @@ class MapScreenState extends State<MapScreen> {
   @override
   void initState() {
     super.initState();
+    SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.bottom]);
     WidgetsBinding.instance.addPostFrameCallback((_) =>
         Provider.of<Places>(context, listen: false)
             .panelController
@@ -62,11 +63,15 @@ class MapScreenState extends State<MapScreen> {
   }
 
   @override
+  void dispose() {
+    SystemChrome.setEnabledSystemUIOverlays(SystemUiOverlay.values);
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context);
-    final trueHeight = mediaQuery.size.height - mediaQuery.padding.top;
-
-    _panelHeightOpen = trueHeight;
+    _panelHeightOpen = mediaQuery.size.height;
 
     return Stack(
       alignment: Alignment.topCenter,
@@ -93,7 +98,6 @@ class MapScreenState extends State<MapScreen> {
                 _collapsedPanelSituationFabHeight;
           }),
         ),
-        Positioned(top: 0, child: const StatusBlur()),
         // the fab
         Positioned(
           right: 20.0,
