@@ -2,8 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../providers/auth.dart';
+import '../providers/places.dart';
 import 'circle_button.dart';
+import 'custom_icons.dart';
 import 'dash.dart';
+import 'placeholder_button.dart';
 
 class SliderMenu extends StatelessWidget {
   SliderMenu(this.scrollController);
@@ -37,23 +40,18 @@ class SliderMenu extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
-                CircleButton(
-                  label: "Popular",
-                  icon: Icons.favorite,
-                  color: Colors.blue,
-                  onPressed: () {},
+                PlaceholderButton(
+                  Colors.blue,
+                ),
+                PlaceholderButton(
+                  Colors.green,
                 ),
                 CircleButton(
-                  label: "Food",
-                  icon: Icons.restaurant,
+                  label: "Losuj",
+                  icon: MyCustomIcons.dice_3,
                   color: Colors.red,
-                  onPressed: () {},
-                ),
-                CircleButton(
-                  label: "Events",
-                  icon: Icons.event,
-                  color: Colors.green,
-                  onPressed: () {},
+                  onPressed:
+                      Provider.of<Places>(context, listen: false).detailRandom,
                 ),
                 CircleButton(
                   label: "Wyloguj się",

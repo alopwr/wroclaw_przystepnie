@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -81,4 +83,9 @@ class Places with ChangeNotifier {
   void onMapCreated(GoogleMapController controller) {
     googleMapsController = controller;
   }
+
+  List<int> get placesIds => places.map((e) => e.id).toList();
+
+  void detailRandom() =>
+      showDetails(placesIds[Random().nextInt(placesIds.length)]);
 }
