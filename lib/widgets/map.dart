@@ -21,6 +21,7 @@ class MapWidget extends StatelessWidget {
         zoomControlsEnabled: false,
         myLocationEnabled: true,
         myLocationButtonEnabled: false,
+        tiltGesturesEnabled: false,
         padding: const EdgeInsets.only(right: 70, bottom: 17),
         initialCameraPosition: const CameraPosition(
           target: LatLng(51.106715, 17.031645),

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
+import 'package:wroclaw_przystepnie/widgets/status_blur.dart';
 
 import '../providers/places.dart';
 import '../widgets/map.dart';
@@ -55,7 +56,6 @@ class MapScreenState extends State<MapScreen> {
   @override
   void initState() {
     super.initState();
-    SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.bottom]);
     WidgetsBinding.instance.addPostFrameCallback((_) =>
         Provider.of<Places>(context, listen: false)
             .panelController
@@ -63,15 +63,9 @@ class MapScreenState extends State<MapScreen> {
   }
 
   @override
-  void dispose() {
-    SystemChrome.setEnabledSystemUIOverlays(SystemUiOverlay.values);
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context);
-    _panelHeightOpen = mediaQuery.size.height;
+    _panelHeightOpen = mediaQuery.size.height - mediaQuery.padding.top;
 
     return Stack(
       alignment: Alignment.topCenter,
@@ -98,7 +92,10 @@ class MapScreenState extends State<MapScreen> {
                 _collapsedPanelSituationFabHeight;
           }),
         ),
-        // the fab
+        Positioned(
+          top: 0,
+          child: StatusBlur(),
+        ),
         Positioned(
           right: 20.0,
           bottom: _fabHeight,
