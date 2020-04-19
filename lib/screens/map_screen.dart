@@ -5,23 +5,19 @@ import 'package:provider/provider.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 
 import '../providers/places.dart';
-import '../widgets/detail_view.dart';
-import '../widgets/drawer.dart';
 import '../widgets/map.dart';
-
-final appBar = AppBar(title: const Text("Wrocław Przystępnie"));
+import '../widgets/slider_panel.dart';
+import '../widgets/status_blur.dart';
 
 class MapScreenLoader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: appBar,
-      drawer: MyDrawer(),
       body: FutureBuilder(
         future: Provider.of<Places>(context, listen: false).fetchPlaces(),
         builder: (context, dataSnapshot) => Stack(
           children: <Widget>[
-            MapScreen(mapScreenKey),
+            MapScreen(),
             if (dataSnapshot.connectionState == ConnectionState.waiting)
               ModalBarrier(
                 color: Colors.black38,
@@ -45,94 +41,72 @@ class MapScreenLoader extends StatelessWidget {
 }
 
 class MapScreen extends StatefulWidget {
-  MapScreen(key) : super(key: key);
-
   @override
   MapScreenState createState() => MapScreenState();
 }
 
 class MapScreenState extends State<MapScreen> {
-  double _fabHeight;
+  double _fabHeight = 120;
   final _collapsedPanelSituationFabHeight = 120.0;
-  final _hiddenPanelSituationFabHeight = 20.0;
-
-  final panelController = PanelController();
 
   double _panelHeightOpen;
-  double _panelHeightClosed = 0;
-  final double _normalPanelHeightClosed = 95.0;
-
-  bool isPanelHiding = true;
+  double _panelHeightClosed = 95.0;
 
   @override
   void initState() {
     super.initState();
-    _fabHeight = _hiddenPanelSituationFabHeight;
-  }
-
-  void showPanel() {
-    isPanelHiding = false;
-    if (_panelHeightClosed == 0)
-      setState(() {
-        _panelHeightClosed = _normalPanelHeightClosed;
-      });
-    else
-      panelController.show();
-    setState(() {
-      _fabHeight = _collapsedPanelSituationFabHeight;
-    });
-  }
-
-  void hidePanel() {
-    isPanelHiding = true;
-    if (_panelHeightClosed != 0) panelController.hide();
-    setState(() {
-      _fabHeight = _hiddenPanelSituationFabHeight;
-    });
+    WidgetsBinding.instance.addPostFrameCallback((_) =>
+        Provider.of<Places>(context, listen: false)
+            .panelController
+            .animatePanelToSnapPoint());
   }
 
   @override
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context);
-    final trueHeight = mediaQuery.size.height -
-        appBar.preferredSize.height -
-        mediaQuery.padding.top;
+    final trueHeight = mediaQuery.size.height - mediaQuery.padding.top;
 
-    _panelHeightOpen = trueHeight - 10;
+    _panelHeightOpen = trueHeight;
 
     return Stack(
       alignment: Alignment.topCenter,
       children: <Widget>[
         SlidingUpPanel(
-          controller: panelController,
+          controller:
+              Provider.of<Places>(context, listen: false).panelController,
           maxHeight: _panelHeightOpen,
           minHeight: _panelHeightClosed,
+          collapsed: GestureDetector(
+            onTap: Provider.of<Places>(context, listen: false)
+                .panelController
+                .animatePanelToSnapPoint,
+          ),
           snapPoint: .7,
           parallaxEnabled: true,
           parallaxOffset: .5,
           body: MapWidget(),
-          panelBuilder: (sc) => DetailView(sc),
+          panelBuilder: (sc) => SliderPanel(sc),
           borderRadius: BorderRadius.only(
               topLeft: Radius.circular(18.0), topRight: Radius.circular(18.0)),
           onPanelSlide: (double pos) => setState(() {
-            if (!isPanelHiding)
-              _fabHeight = pos * (_panelHeightOpen - _panelHeightClosed) +
-                  _collapsedPanelSituationFabHeight;
+            _fabHeight = pos * (_panelHeightOpen - _panelHeightClosed) +
+                _collapsedPanelSituationFabHeight;
           }),
         ),
+        Positioned(top: 0, child: const StatusBlur()),
         // the fab
-        // Positioned(
-        //   right: 20.0,
-        //   bottom: _fabHeight,
-        //   child: FloatingActionButton(
-        //     child: const Icon(
-        //       Icons.gps_fixed,
-        //       color: Colors.blue,
-        //     ),
-        //     onPressed: () {},
-        //     backgroundColor: Colors.white,
-        //   ),
-        // ),
+        Positioned(
+          right: 20.0,
+          bottom: _fabHeight,
+          child: FloatingActionButton(
+            child: const Icon(
+              Icons.gps_fixed,
+              color: Colors.blue,
+            ),
+            onPressed: () {},
+            backgroundColor: Colors.white,
+          ),
+        ),
 
         //the SlidingUpPanel Title
         // Positioned(

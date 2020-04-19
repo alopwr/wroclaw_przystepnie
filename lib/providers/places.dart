@@ -1,25 +1,22 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:sliding_up_panel/sliding_up_panel.dart';
 
 import '../helpers/http_helper.dart';
-import '../screens/map_screen.dart';
 import 'auth.dart';
 import 'place.dart';
-
-final mapScreenKey = GlobalKey<MapScreenState>();
 
 class Places with ChangeNotifier {
   Places({this.auth});
   Auth auth;
+  final panelController = PanelController();
+  GoogleMapController googleMapsController;
 
   List<Place> _places = [];
   List<int> _visiblePlacesIds;
 
-  GoogleMapController googleMapsController;
-
   List<Place> get places => [..._places];
-  // Map<MarkerId, Marker> markers = <MarkerId, Marker>{};
 
   Set<Marker> get markers =>
       visiblePlaces.map((placeElement) => placeElement.marker).toSet();
@@ -57,14 +54,23 @@ class Places with ChangeNotifier {
 
   void showDetails(int id) {
     if (id == null) return;
+    panelController.close();
     _activePlaceId = id;
-    mapScreenKey.currentState?.showPanel();
+    googleMapsController.animateCamera(
+      CameraUpdate.newCameraPosition(
+        CameraPosition(
+          target: activePlace.location,
+          zoom: 16,
+        ),
+      ),
+    );
     notifyListeners();
   }
 
-  void hideDetails() {
-    mapScreenKey.currentState?.hidePanel();
+  void showMenu() {
     _activePlaceId = null;
+    panelController.close();
+    notifyListeners();
   }
 
   Place get activePlace {

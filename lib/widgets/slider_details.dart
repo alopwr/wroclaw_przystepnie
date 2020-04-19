@@ -1,19 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
-import '../providers/places.dart';
+import '../providers/place.dart';
 import 'dash.dart';
 
-class DetailView extends StatelessWidget {
-  DetailView(this.scrollController);
+class SliderDetails extends StatelessWidget {
+  SliderDetails(this.scrollController, this.place);
 
   final ScrollController scrollController;
-
+  final Place place;
+  
   @override
   Widget build(BuildContext context) {
-    var places = Provider.of<Places>(context);
-    var activePlace = places.activePlace;
-    if (activePlace == null) return Container();
     return MediaQuery.removePadding(
         context: context,
         removeTop: true,
@@ -27,7 +24,7 @@ class DetailView extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 Text(
-                 activePlace.name,
+                  place.name,
                   style: const TextStyle(
                     fontWeight: FontWeight.normal,
                     fontSize: 24.0,

@@ -11,7 +11,7 @@ class MapWidget extends StatelessWidget {
       onMapCreated: places.onMapCreated,
       markers: places.markers,
       onTap: (_) {
-        places.hideDetails();
+        places.showMenu();
       },
       buildingsEnabled: true,
       compassEnabled: false,
@@ -22,7 +22,5 @@ class MapWidget extends StatelessWidget {
         zoom: 15,
       ),
     );
-    // onTap: () => places.showDetails(1),
-    // onDoubleTap: () => places.hideDetails(),
   }
 }
