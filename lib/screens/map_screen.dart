@@ -1,10 +1,10 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 import 'package:wroclaw_przystepnie/widgets/status_blur.dart';
+import 'package:wroclaw_przystepnie/widgets/user_location_button.dart';
 
 import '../providers/places.dart';
 import '../widgets/map.dart';
@@ -99,14 +99,7 @@ class MapScreenState extends State<MapScreen> {
         Positioned(
           right: 20.0,
           bottom: _fabHeight,
-          child: FloatingActionButton(
-            child: const Icon(
-              Icons.gps_fixed,
-              color: Colors.blue,
-            ),
-            onPressed: () {},
-            backgroundColor: Colors.white,
-          ),
+          child: UserLocationButton(),
         ),
 
         //the SlidingUpPanel Title

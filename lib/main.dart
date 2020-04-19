@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 
 import 'providers/auth.dart';
 import 'providers/places.dart';
+import 'providers/user_location.dart';
 import 'screens/login_screen.dart';
 import 'screens/map_screen.dart';
 
@@ -18,7 +19,11 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProxyProvider<Auth, Places>(
           create: (_) => Places(),
           update: (_, auth, __) => Places(auth: auth),
-        )
+        ),
+        ChangeNotifierProxyProvider<Places, UserLocationManager>(
+          create: (_) => UserLocationManager(),
+          update: (_, places, __) => UserLocationManager(places: places),
+        ),
       ],
       child: Consumer<Auth>(
         builder: (context, auth, _) => MaterialApp(
