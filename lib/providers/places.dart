@@ -42,6 +42,15 @@ class Places with ChangeNotifier {
 
   void setVisiblePlacesFilter(List<int> visibleIds) {
     _visiblePlacesIds = visibleIds;
+    panelController.close();
+    final bounds = visibleMarkersBounds;
+    googleMapsController.animateCamera(CameraUpdate.newLatLngBounds(
+      LatLngBounds(
+        southwest: bounds['southwest'],
+        northeast: bounds['northeast'],
+      ),
+      30.0,
+    ));
     notifyListeners();
   }
 
@@ -88,4 +97,19 @@ class Places with ChangeNotifier {
 
   void detailRandom() =>
       showDetails(placesIds[Random().nextInt(placesIds.length)]);
+
+  Map<String, LatLng> get visibleMarkersBounds {
+    List<double> lats = [];
+    List<double> longs = [];
+
+    visiblePlaces.forEach((element) {
+      lats.add(element.location.latitude);
+      longs.add(element.location.longitude);
+    });
+
+    return {
+      "southwest": LatLng(lats.reduce(min), longs.reduce(min)),
+      "northeast": LatLng(lats.reduce(max), longs.reduce(max))
+    };
+  }
 }

@@ -3,7 +3,7 @@ class Track {
     this.id = jsonMap['id'];
     this.name = jsonMap['name'];
     this.description = jsonMap['description'];
-    this.places = jsonMap['place_set'];
+    this.places = List<int>.from(jsonMap['place_set']);
   }
   String name;
   int id;
