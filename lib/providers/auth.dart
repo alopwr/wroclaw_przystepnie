@@ -51,7 +51,7 @@ class Auth with ChangeNotifier {
   bool get isAuthed => phoneNumber != null && token != null;
 
   Future<bool> sendPhoneNumber(String phoneNum, BuildContext context) async {
-    var url = "$API_MASTER_URL/auth/user/";
+    var url = "$API_MASTER_URL/auth/generate/";
     var hash = await SmsAutoFill().getAppSignature;
     var response = await http.post(
       url,

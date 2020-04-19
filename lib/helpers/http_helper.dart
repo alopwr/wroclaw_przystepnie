@@ -15,4 +15,15 @@ class HttpHelper {
     return List<Map<String, dynamic>>.from(
         json.decode(utf8.decode(response.bodyBytes)));
   }
+
+  static Future<List<Map<String, dynamic>>> fetchTracks(
+      Map<String, String> headers) async {
+    var url = "$API_MASTER_URL/paths/";
+    var response = await http.get(
+      url,
+      headers: headers,
+    );
+    return List<Map<String, dynamic>>.from(
+        json.decode(utf8.decode(response.bodyBytes)));
+  }
 }
