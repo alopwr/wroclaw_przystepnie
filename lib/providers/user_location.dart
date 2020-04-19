@@ -20,17 +20,21 @@ class UserLocationManager with ChangeNotifier {
       !enabledAndAllowedLocation && permission != null && serviceStatus != null;
 
   Future<void> permissionHandling() async {
-    permission = await LocationPermissions().checkPermissionStatus();
+    permission = await LocationPermissions().checkPermissionStatus(
+        level: LocationPermissionLevel.locationWhenInUse);
     if (permission != PermissionStatus.granted)
-      permission = await LocationPermissions().requestPermissions();
-    serviceStatus = await LocationPermissions().checkServiceStatus();
+      permission = await LocationPermissions().requestPermissions(
+          permissionLevel: LocationPermissionLevel.locationWhenInUse);
+    serviceStatus = await LocationPermissions()
+        .checkServiceStatus(level: LocationPermissionLevel.locationWhenInUse);
     notifyListeners();
   }
 
   Future<void> focusOnUser() async {
     if (!enabledAndAllowedLocation) return;
-    Position position = await Geolocator()
-        .getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+    Position position = await Geolocator().getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.high,
+        locationPermissionLevel: GeolocationPermission.locationWhenInUse);
     places.panelController.close();
     await places.googleMapsController.animateCamera(
       CameraUpdate.newCameraPosition(

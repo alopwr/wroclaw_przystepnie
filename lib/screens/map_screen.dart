@@ -3,12 +3,13 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
-import 'package:wroclaw_przystepnie/widgets/status_blur.dart';
-import 'package:wroclaw_przystepnie/widgets/user_location_button.dart';
 
 import '../providers/places.dart';
+import '../widgets/location_warning_badge.dart';
 import '../widgets/map.dart';
 import '../widgets/slider_panel.dart';
+import '../widgets/status_blur.dart';
+import '../widgets/user_location_button.dart';
 
 class MapScreenLoader extends StatelessWidget {
   @override
@@ -100,6 +101,11 @@ class MapScreenState extends State<MapScreen> {
           right: 20.0,
           bottom: _fabHeight,
           child: UserLocationButton(),
+        ),
+        Positioned(
+          top: 30,
+          right: 5,
+          child: LocationWarningBadge(),
         ),
 
         //the SlidingUpPanel Title
