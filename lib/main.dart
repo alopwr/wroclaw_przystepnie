@@ -33,7 +33,8 @@ class MyApp extends StatelessWidget {
       child: Consumer<Auth>(
         builder: (context, auth, _) => MaterialApp(
           title: 'Wrocław Przystępnie',
-          theme: ThemeData(primarySwatch: Colors.yellow),
+          theme:
+              ThemeData(primarySwatch: Colors.yellow, fontFamily: "Helvetica"),
           home: auth.loggingProcess
               ? Scaffold(
                   appBar: AppBar(title: const Text("Wrocław Przystępnie")),
