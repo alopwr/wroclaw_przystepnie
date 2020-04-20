@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../providers/place.dart';
+import '../providers/places.dart';
+import 'circle_button.dart';
 import 'dash.dart';
 
 class SliderDetails extends StatelessWidget {
@@ -8,7 +11,7 @@ class SliderDetails extends StatelessWidget {
 
   final ScrollController scrollController;
   final Place place;
-  
+
   @override
   Widget build(BuildContext context) {
     return MediaQuery.removePadding(
@@ -39,7 +42,15 @@ class SliderDetails extends StatelessWidget {
                 _button("Popular", Icons.favorite, Colors.blue),
                 _button("Food", Icons.restaurant, Colors.red),
                 _button("Events", Icons.event, Colors.amber),
-                _button("More", Icons.more_horiz, Colors.green),
+                CircleButton(
+                  label: "Wróć",
+                  color: Colors.grey,
+                  icon: Icons.arrow_back_ios,
+                  onPressed: () {
+                    Provider.of<Places>(context, listen: false)
+                        .showMenu(close: false);
+                  },
+                )
               ],
             ),
             const SizedBox(height: 36),

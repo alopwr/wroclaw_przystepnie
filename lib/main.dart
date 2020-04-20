@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:wroclaw_przystepnie/widgets/back_button_manager.dart';
 
 import 'providers/auth.dart';
 import 'providers/places.dart';
@@ -33,13 +34,15 @@ class MyApp extends StatelessWidget {
       child: Consumer<Auth>(
         builder: (context, auth, _) => MaterialApp(
           title: 'Wrocław Przystępnie',
-          theme: ThemeData(
-              primarySwatch: Colors.orange, fontFamily: "Helvetica"),
+          theme:
+              ThemeData(primarySwatch: Colors.orange, fontFamily: "Helvetica"),
           home: auth.loggingProcess
               ? Scaffold(
-                  appBar: AppBar(title: const Text("Wrocław Przystępnie")),
-                  body: const Center(child: CircularProgressIndicator()))
-              : auth.isAuthed ? MapScreenLoader() : LoginScreen(),
+                  body: const SafeArea(
+                      child: Center(child: CircularProgressIndicator())))
+              : BackButtonManager(
+                  child: auth.isAuthed ? MapScreenLoader() : LoginScreen(),
+                ),
         ),
       ),
     );
