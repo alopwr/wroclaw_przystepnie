@@ -8,6 +8,7 @@ import 'package:sliding_up_panel/sliding_up_panel.dart';
 import '../helpers/http_helper.dart';
 import 'auth.dart';
 import 'place.dart';
+import 'track.dart';
 
 class Places with ChangeNotifier {
   Places({this.auth});
@@ -16,7 +17,7 @@ class Places with ChangeNotifier {
   GoogleMapController googleMapsController;
 
   List<Place> _places = [];
-  List<int> _visiblePlacesIds;
+  Track currentTrack;
 
   List<Place> get places => [..._places];
 
@@ -32,6 +33,8 @@ class Places with ChangeNotifier {
           .toList();
   }
 
+  List<int> get _visiblePlacesIds => currentTrack?.places;
+
   Future<void> fetchPlaces({bool rebuild = true}) async {
     var placesJson = await HttpHelper.fetchPlaces(auth.headers);
     _places = placesJson
@@ -40,8 +43,8 @@ class Places with ChangeNotifier {
     if (rebuild) notifyListeners();
   }
 
-  void setVisiblePlacesFilter(List<int> visibleIds) {
-    _visiblePlacesIds = visibleIds;
+  void setVisiblePlacesFilter(Track track) {
+    currentTrack = track;
     panelController.close();
     final bounds = visibleMarkersBounds;
     googleMapsController.animateCamera(CameraUpdate.newLatLngBounds(
@@ -49,13 +52,13 @@ class Places with ChangeNotifier {
         southwest: bounds['southwest'],
         northeast: bounds['northeast'],
       ),
-      30.0,
+      0,
     ));
     notifyListeners();
   }
 
   void clearFilter() {
-    _visiblePlacesIds = null;
+    currentTrack = null;
     notifyListeners();
   }
 

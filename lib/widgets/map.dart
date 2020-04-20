@@ -6,6 +6,11 @@ import '../providers/places.dart';
 import '../providers/user_location.dart';
 
 class MapWidget extends StatelessWidget {
+  final activePadding =
+      const EdgeInsets.symmetric(horizontal: 70, vertical: 18);
+  final boundingPadding =
+      const EdgeInsets.symmetric(horizontal: 30, vertical: 30);
+      
   @override
   Widget build(BuildContext context) {
     var places = Provider.of<Places>(context);
@@ -20,14 +25,13 @@ class MapWidget extends StatelessWidget {
           places.showMenu();
         },
         buildingsEnabled: true,
-        compassEnabled: true,
+        compassEnabled: false,
         mapToolbarEnabled: true,
         zoomControlsEnabled: false,
         myLocationEnabled: user.enabledAndAllowedLocation ? true : false,
         myLocationButtonEnabled: false,
         tiltGesturesEnabled: false,
-        padding: EdgeInsets.only(
-            right: 70, bottom: 17, top: MediaQuery.of(context).padding.top),
+        padding: places.activePlace != null ? activePadding : boundingPadding,
         initialCameraPosition: const CameraPosition(
           target: LatLng(51.106715, 17.031645),
           zoom: 13,

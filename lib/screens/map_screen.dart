@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 
 import '../providers/places.dart';
+import '../widgets/current_track_chip.dart';
 import '../widgets/location_warning_badge.dart';
 import '../widgets/map.dart';
 import '../widgets/slider_panel.dart';
@@ -54,6 +55,9 @@ class MapScreenState extends State<MapScreen> {
   double _panelHeightOpen;
   double _panelHeightClosed = 95.0;
 
+  double _trackBadgeTop = 30;
+  final _collapsedPanelSituationTrackBadgeTop = 30;
+
   @override
   void initState() {
     super.initState();
@@ -84,13 +88,22 @@ class MapScreenState extends State<MapScreen> {
           snapPoint: .7,
           parallaxEnabled: true,
           parallaxOffset: .5,
-          body: MapWidget(),
+          body: Stack(
+            children: <Widget>[
+              MapWidget(),
+              Positioned(
+                  top: _trackBadgeTop, left: 10, child: CurrentTrackChip()),
+            ],
+          ),
           panelBuilder: (sc) => SliderPanel(sc),
           borderRadius: BorderRadius.only(
               topLeft: Radius.circular(18.0), topRight: Radius.circular(18.0)),
           onPanelSlide: (double pos) => setState(() {
             _fabHeight = pos * (_panelHeightOpen - _panelHeightClosed) +
                 _collapsedPanelSituationFabHeight;
+            _trackBadgeTop =
+                .5 * pos * (_panelHeightOpen - _panelHeightClosed) +
+                    _collapsedPanelSituationTrackBadgeTop;
           }),
         ),
         Positioned(

@@ -25,7 +25,10 @@ class _UserLocationButtonState extends State<UserLocationButton> {
           children: <Widget>[
             const Padding(
                 padding: EdgeInsets.all(10),
-                child: CircularProgressIndicator()),
+                child: SizedBox(
+                    width: 20,
+                    height: 20,
+                    child: CircularProgressIndicator(strokeWidth: 3.0))),
           ],
         ),
         secondChild: const Icon(
