@@ -47,8 +47,8 @@ class Places with ChangeNotifier {
   void setVisiblePlacesFilter(Track track) {
     currentTrack = track;
     panelController.close();
-    focusOnVisible();
     notifyListeners();
+    focusOnVisible();
   }
 
   void clearFilter({bool close = false}) {
@@ -64,7 +64,7 @@ class Places with ChangeNotifier {
         southwest: bounds['southwest'],
         northeast: bounds['northeast'],
       ),
-      0,
+      30,
     ));
   }
 

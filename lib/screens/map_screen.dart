@@ -111,7 +111,7 @@ class MapScreenState extends State<MapScreen> {
           child: StatusBlur(),
         ),
         Positioned(
-          right: 20.0,
+          right: 24.5,
           bottom: _fabHeight,
           child: UserLocationButton(),
         ),
