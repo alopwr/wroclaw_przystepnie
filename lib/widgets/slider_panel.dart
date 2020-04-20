@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import '../providers/places.dart';
 import 'slider_details.dart';
 import 'slider_menu.dart';
+import 'slider_track.dart';
 
 class SliderPanel extends StatelessWidget {
   SliderPanel(this.scrollController);
@@ -13,9 +14,10 @@ class SliderPanel extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var places = Provider.of<Places>(context);
-    places.panelListScrollController = scrollController;
     var activePlace = places.activePlace;
-    if (activePlace == null) return SliderMenu(scrollController);
-    return SliderDetails(scrollController, activePlace);
+    if (activePlace != null)
+      return SliderDetails(scrollController, activePlace);
+    if (places.currentTrack != null) return SliderTrackMenu(scrollController);
+    return SliderMenu(scrollController);
   }
 }

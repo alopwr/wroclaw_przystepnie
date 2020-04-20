@@ -14,7 +14,6 @@ class Places with ChangeNotifier {
   Places({this.auth});
   Auth auth;
   final panelController = PanelController();
-  ScrollController panelListScrollController;
 
   GoogleMapController googleMapsController;
 
@@ -48,6 +47,17 @@ class Places with ChangeNotifier {
   void setVisiblePlacesFilter(Track track) {
     currentTrack = track;
     panelController.close();
+    focusOnVisible();
+    notifyListeners();
+  }
+
+  void clearFilter({bool close = false}) {
+    currentTrack = null;
+    notifyListeners();
+    if (close) panelController.close();
+  }
+
+  void focusOnVisible() {
     final bounds = visibleMarkersBounds;
     googleMapsController.animateCamera(CameraUpdate.newLatLngBounds(
       LatLngBounds(
@@ -56,12 +66,6 @@ class Places with ChangeNotifier {
       ),
       0,
     ));
-    notifyListeners();
-  }
-
-  void clearFilter() {
-    currentTrack = null;
-    notifyListeners();
   }
 
   int _activePlaceId;
@@ -83,10 +87,15 @@ class Places with ChangeNotifier {
     notifyListeners();
   }
 
-  void showMenu({bool close = true}) {
+  void showMenu() {
     _activePlaceId = null;
-    if (close) panelController.close();
+    panelController.close();
     notifyListeners();
+  }
+
+  void showTrackMenuOrNormalMenu() {
+    showMenu();
+    if (currentTrack != null) focusOnVisible();
   }
 
   Place get activePlace {

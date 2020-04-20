@@ -33,16 +33,15 @@ class BackButtonManager extends StatelessWidget {
       onWillPop: () {
         final places = Provider.of<Places>(context, listen: false);
         if (places.activePlace != null) {
-          places.panelListScrollController.animateTo(1,
-              duration: const Duration(milliseconds: 100),
-              curve: Curves.fastOutSlowIn);
-          places.panelController.close();
-          places.showMenu(close: false);
+          places.showTrackMenuOrNormalMenu();
           return Future.delayed(Duration.zero, () => false);
+        } else if (places.currentTrack != null) {
+          if (places.currentTrack != null) {
+            places.clearFilter(close: true);
+            places.panelController.close();
+            return Future.delayed(Duration.zero, () => false);
+          }
         } else if (!places.panelController.isPanelClosed) {
-          places.panelListScrollController.animateTo(1,
-              duration: const Duration(milliseconds: 100),
-              curve: Curves.fastOutSlowIn);
           places.panelController.close();
           return Future.delayed(Duration.zero, () => false);
         }
