@@ -14,6 +14,8 @@ class Places with ChangeNotifier {
   Places({this.auth});
   Auth auth;
   final panelController = PanelController();
+  ScrollController panelListScrollController;
+
   GoogleMapController googleMapsController;
 
   List<Place> _places = [];
@@ -81,9 +83,9 @@ class Places with ChangeNotifier {
     notifyListeners();
   }
 
-  void showMenu() {
+  void showMenu({bool close = true}) {
     _activePlaceId = null;
-    panelController.close();
+    if (close) panelController.close();
     notifyListeners();
   }
 

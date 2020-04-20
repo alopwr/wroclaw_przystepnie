@@ -13,6 +13,7 @@ class SliderPanel extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var places = Provider.of<Places>(context);
+    places.panelListScrollController = scrollController;
     var activePlace = places.activePlace;
     if (activePlace == null) return SliderMenu(scrollController);
     return SliderDetails(scrollController, activePlace);

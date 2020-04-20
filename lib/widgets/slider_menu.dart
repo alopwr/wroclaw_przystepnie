@@ -20,8 +20,7 @@ class SliderMenu extends StatelessWidget {
     return MediaQuery.removePadding(
         context: context,
         removeTop: true,
-        child: ListView(
-          controller: scrollController,
+        child: Column(
           children: <Widget>[
             const SizedBox(height: 12),
             const Dash(),
@@ -64,17 +63,22 @@ class SliderMenu extends StatelessWidget {
               ],
             ),
             const SizedBox(height: 36),
-            Container(
-              padding: const EdgeInsets.only(left: 24.0, right: 24.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+            Align(
+              alignment: Alignment.topLeft,
+              child: Padding(
+                padding: const EdgeInsets.only(left: 24),
+                child: Text("Trasy:",
+                    style: Theme.of(context)
+                        .textTheme
+                        .title
+                        .copyWith(fontWeight: FontWeight.w600)),
+              ),
+            ),
+            const SizedBox(height: 12),
+            Expanded(
+              child: ListView(
+                controller: scrollController,
                 children: <Widget>[
-                  Text("Trasy",
-                      style: Theme.of(context)
-                          .textTheme
-                          .title
-                          .copyWith(fontWeight: FontWeight.w600)),
-                  const SizedBox(height: 12),
                   FutureBuilder(
                     future:
                         Provider.of<Tracks>(context, listen: false).getTracks(),
