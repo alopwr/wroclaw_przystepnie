@@ -30,7 +30,7 @@ class MapWidget extends StatelessWidget {
             right: 70, bottom: 17, top: MediaQuery.of(context).padding.top),
         initialCameraPosition: const CameraPosition(
           target: LatLng(51.106715, 17.031645),
-          zoom: 15,
+          zoom: 13,
         ),
       ),
     );
