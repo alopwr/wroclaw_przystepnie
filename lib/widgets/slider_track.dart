@@ -1,3 +1,4 @@
+import 'package:expand_widget/expand_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:wroclaw_przystepnie/widgets/progress_bar.dart';
@@ -9,7 +10,6 @@ import 'places_on_track_list.dart';
 
 class SliderTrackMenu extends StatelessWidget {
   SliderTrackMenu(this.scrollController);
-
   final ScrollController scrollController;
 
   @override
@@ -19,6 +19,7 @@ class SliderTrackMenu extends StatelessWidget {
       context: context,
       removeTop: true,
       child: Column(
+        mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
           const SizedBox(height: 12),
@@ -43,7 +44,7 @@ class SliderTrackMenu extends StatelessWidget {
                 CircleButton(
                   label: "",
                   icon: Icons.close,
-                  color: Theme.of(context).errorColor,
+                  color: Colors.grey,
                   onPressed: () {
                     Provider.of<Places>(context, listen: false)
                         .clearFilter(close: true);
@@ -53,42 +54,53 @@ class SliderTrackMenu extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 18),
-          Align(
-            alignment: Alignment.topLeft,
-            child: Padding(
-              padding: const EdgeInsets.only(left: 24),
-              child: Text("Opis:",
-                  style: Theme.of(context)
-                      .textTheme
-                      .title
-                      .copyWith(fontWeight: FontWeight.w600)),
-            ),
-          ),
-          const SizedBox(height: 12),
-          Align(
-            alignment: Alignment.topLeft,
-            child: Padding(
-              padding: const EdgeInsets.only(left: 24),
-              child: Text(track.description),
-            ),
-          ),
-          const SizedBox(height: 36),
-          Align(
-            alignment: Alignment.topLeft,
-            child: Padding(
-              padding: const EdgeInsets.only(left: 24),
-              child: Text("Punkty:",
-                  style: Theme.of(context)
-                      .textTheme
-                      .title
-                      .copyWith(fontWeight: FontWeight.w600)),
-            ),
-          ),
-          const SizedBox(height: 12),
+
+          // Flexible(
+          //   child: SingleChildScrollView(
+          //     controller: scrollController,
+          //     child:
+          //   ),
+          // ),
           Expanded(
-            child: ListView(
+            child: SingleChildScrollView(
               controller: scrollController,
-              children: <Widget>[PlacesOnTrackList()],
+              child: Column(
+                children: <Widget>[
+                  Align(
+                    alignment: Alignment.topLeft,
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 24),
+                      child: Text("Opis:",
+                          style: Theme.of(context)
+                              .textTheme
+                              .title
+                              .copyWith(fontWeight: FontWeight.w600)),
+                    ),
+                  ),
+                  const SizedBox(height: 12),
+                  Align(
+                    alignment: Alignment.topLeft,
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 24),
+                      child: ExpandText(track.description),
+                    ),
+                  ),
+                  const SizedBox(height: 36),
+                  Align(
+                    alignment: Alignment.topLeft,
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 24),
+                      child: Text("Punkty:", 
+                          style: Theme.of(context)
+                              .textTheme
+                              .title
+                              .copyWith(fontWeight: FontWeight.w600)),
+                    ),
+                  ),
+                  const SizedBox(height: 12),
+                  PlacesOnTrackList(),
+                ],
+              ),
             ),
           ),
           const SizedBox(height: 24),

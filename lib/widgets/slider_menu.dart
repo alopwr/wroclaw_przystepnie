@@ -76,28 +76,26 @@ class SliderMenu extends StatelessWidget {
             ),
             const SizedBox(height: 12),
             Expanded(
-              child: ListView(
+              child: SingleChildScrollView(
                 controller: scrollController,
-                children: <Widget>[
-                  FutureBuilder(
-                    future:
-                        Provider.of<Tracks>(context, listen: false).getTracks(),
-                    initialData:
-                        Provider.of<Tracks>(context, listen: false).tracks,
-                    builder: (context, snapshot) {
-                      if (snapshot.data == null &&
-                          snapshot.connectionState == ConnectionState.waiting)
-                        return const Center(child: CircularProgressIndicator());
-                      else if (!snapshot.hasError) return TracksPicker();
-                      print(snapshot.error);
-                      return Center(
-                          child: Text(
-                        "Oops! Coś poszło nie tak",
-                        style: TextStyle(color: Theme.of(context).errorColor),
-                      ));
-                    },
-                  ),
-                ],
+                child: FutureBuilder(
+                  future:
+                      Provider.of<Tracks>(context, listen: false).getTracks(),
+                  initialData:
+                      Provider.of<Tracks>(context, listen: false).tracks,
+                  builder: (context, snapshot) {
+                    if (snapshot.data == null &&
+                        snapshot.connectionState == ConnectionState.waiting)
+                      return const Center(child: CircularProgressIndicator());
+                    else if (!snapshot.hasError) return TracksPicker();
+                    print(snapshot.error);
+                    return Center(
+                        child: Text(
+                      "Oops! Coś poszło nie tak",
+                      style: TextStyle(color: Theme.of(context).errorColor),
+                    ));
+                  },
+                ),
               ),
             ),
             const SizedBox(height: 24),
