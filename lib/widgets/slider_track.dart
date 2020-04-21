@@ -37,11 +37,26 @@ class SliderTrackMenu extends StatelessWidget {
           ),
           const SizedBox(height: 36),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 24),
+            padding: const EdgeInsets.only(left: 24, right: 35),
             child: Row(
               children: <Widget>[
-                Expanded(child: ProgressBar(track)),
-                const SizedBox(width: 50),
+                Expanded(
+                    child: Column(
+                  children: <Widget>[
+                    Align(
+                        alignment: Alignment.topLeft,
+                        child: Text("Twój postęp:",
+                            style: Theme.of(context)
+                                .textTheme
+                                .body2
+                                .copyWith(fontWeight: FontWeight.bold))),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 11, top: 8),
+                      child: ProgressBar(track),
+                    ),
+                  ],
+                )),
+                const SizedBox(width: 40),
                 CircleButton(
                   label: "",
                   icon: Icons.close,
@@ -54,14 +69,6 @@ class SliderTrackMenu extends StatelessWidget {
               ],
             ),
           ),
-          const SizedBox(height: 18),
-
-          // Flexible(
-          //   child: SingleChildScrollView(
-          //     controller: scrollController,
-          //     child:
-          //   ),
-          // ),
           Expanded(
             child: SingleChildScrollView(
               controller: scrollController,
@@ -82,7 +89,7 @@ class SliderTrackMenu extends StatelessWidget {
                     content: Align(
                       alignment: Alignment.topLeft,
                       child: Padding(
-                        padding: const EdgeInsets.only(left: 24),
+                        padding: const EdgeInsets.symmetric(horizontal: 24),
                         child: ExpandText(track.description),
                       ),
                     ),
