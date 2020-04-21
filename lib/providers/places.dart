@@ -51,10 +51,11 @@ class Places with ChangeNotifier {
     focusOnVisible();
   }
 
-  void clearFilter({bool close = false}) {
+  void clearFilter({bool close = false, bool zoomOut = false}) {
     currentTrack = null;
     notifyListeners();
     if (close) panelController.close();
+    if (zoomOut) focusOnVisible();
   }
 
   void focusOnVisible() {
@@ -93,9 +94,9 @@ class Places with ChangeNotifier {
     notifyListeners();
   }
 
-  void showTrackMenuOrNormalMenu() {
+  void showMenuAndZoomOut() {
     showMenu();
-    if (currentTrack != null) focusOnVisible();
+    focusOnVisible();
   }
 
   Place get activePlace {
@@ -105,6 +106,16 @@ class Places with ChangeNotifier {
 
   void onMapCreated(GoogleMapController controller) {
     googleMapsController = controller;
+    Future.delayed(Duration(milliseconds: 100), () {
+      final bounds = visibleMarkersBounds;
+      googleMapsController.moveCamera(CameraUpdate.newLatLngBounds(
+        LatLngBounds(
+          southwest: bounds['southwest'],
+          northeast: bounds['northeast'],
+        ),
+        30,
+      ));
+    });
   }
 
   List<int> get placesIds => places.map((e) => e.id).toList();

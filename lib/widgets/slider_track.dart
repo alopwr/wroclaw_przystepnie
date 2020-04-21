@@ -47,7 +47,7 @@ class SliderTrackMenu extends StatelessWidget {
                   color: Colors.grey,
                   onPressed: () {
                     Provider.of<Places>(context, listen: false)
-                        .clearFilter(close: true);
+                        .clearFilter(close: true, zoomOut: true);
                   },
                 ),
               ],

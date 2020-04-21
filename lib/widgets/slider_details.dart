@@ -47,7 +47,8 @@ class SliderDetails extends StatelessWidget {
                   color: Colors.grey,
                   icon: Icons.arrow_back_ios,
                   onPressed: () {
-                    Provider.of<Places>(context, listen: false).showTrackMenuOrNormalMenu();
+                    Provider.of<Places>(context, listen: false)
+                        .showMenuAndZoomOut();
                   },
                 )
               ],
