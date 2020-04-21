@@ -1,6 +1,7 @@
 import 'package:expand_widget/expand_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:sticky_headers/sticky_headers.dart';
 import 'package:wroclaw_przystepnie/widgets/progress_bar.dart';
 
 import '../providers/places.dart';
@@ -66,39 +67,44 @@ class SliderTrackMenu extends StatelessWidget {
               controller: scrollController,
               child: Column(
                 children: <Widget>[
-                  Align(
-                    alignment: Alignment.topLeft,
-                    child: Padding(
-                      padding: const EdgeInsets.only(left: 24),
+                  StickyHeader(
+                    header: Container(
+                      width: MediaQuery.of(context).size.width,
+                      color: Colors.white,
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 24, vertical: 10),
                       child: Text("Opis:",
                           style: Theme.of(context)
                               .textTheme
                               .title
                               .copyWith(fontWeight: FontWeight.w600)),
                     ),
-                  ),
-                  const SizedBox(height: 12),
-                  Align(
-                    alignment: Alignment.topLeft,
-                    child: Padding(
-                      padding: const EdgeInsets.only(left: 24),
-                      child: ExpandText(track.description),
+                    content: Align(
+                      alignment: Alignment.topLeft,
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 24),
+                        child: ExpandText(track.description),
+                      ),
                     ),
                   ),
                   const SizedBox(height: 36),
-                  Align(
-                    alignment: Alignment.topLeft,
-                    child: Padding(
-                      padding: const EdgeInsets.only(left: 24),
-                      child: Text("Punkty:", 
+                  StickyHeader(
+                    header: Container(
+                      width: MediaQuery.of(context).size.width,
+                      color: Colors.white,
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 24, vertical: 10),
+                      child: Text("Punkty:",
                           style: Theme.of(context)
                               .textTheme
                               .title
                               .copyWith(fontWeight: FontWeight.w600)),
                     ),
+                    content: Align(
+                      alignment: Alignment.topLeft,
+                      child: PlacesOnTrackList(),
+                    ),
                   ),
-                  const SizedBox(height: 12),
-                  PlacesOnTrackList(),
                 ],
               ),
             ),
