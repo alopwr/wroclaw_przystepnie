@@ -15,6 +15,7 @@ class Tracks with ChangeNotifier {
   Future<void> fetchTracks({bool rebuild = true}) async {
     var tracksJson = await HttpHelper.fetchTracks(auth.headers);
     _tracks = tracksJson.map((jsonMap) => Track.fromJson(jsonMap)).toList();
+    _tracks = _tracks.reversed.toList();
     if (rebuild) notifyListeners();
   }
 
