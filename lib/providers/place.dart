@@ -7,6 +7,7 @@ class Media {
   Media.fromJson(Map<String, dynamic> jsonMap) {
     this.id = jsonMap['id'];
     this.url = jsonMap['file'];
+    this.name = jsonMap['name'];
     this.type = jsonMap['type'] == 'image'
         ? MediaType.image
         : jsonMap['type'] == 'audio' ? MediaType.audio : MediaType.video;
@@ -14,7 +15,11 @@ class Media {
 
   int id;
   String url;
+  String name;
   MediaType type;
+
+  bool get isImage => type == MediaType.image;
+  String get heroTag => "heromediatag-$id";
 }
 
 class Place with ChangeNotifier {
@@ -34,6 +39,13 @@ class Place with ChangeNotifier {
         showDetails(id);
       },
     );
+
+    this.mediaSet.add(Media.fromJson({
+          'file': "https://source.unsplash.com/1900x3600/?camera,paper",
+          'id': 888,
+          "name": "ben duzy obraz",
+          'type': "image"
+        }));
   }
 
   int id;

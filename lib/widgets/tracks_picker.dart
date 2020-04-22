@@ -34,9 +34,7 @@ class TracksPicker extends StatelessWidget {
                   trailing: currentTrack == track
                       ? Icon(Icons.close,
                           size: 28, color: Theme.of(context).errorColor)
-                      : Transform.rotate(
-                          angle: pi / 4,
-                          child: const Icon(Icons.navigation, size: 28)),
+                      : const Icon(Icons.near_me, size: 28),
                   subtitle: ProgressBar(track),
                   onTap: currentTrack == track
                       ? places.clearFilter

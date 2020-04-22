@@ -1,13 +1,13 @@
 import 'package:expand_widget/expand_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:sticky_headers/sticky_headers.dart';
-import 'package:wroclaw_przystepnie/widgets/progress_bar.dart';
 
 import '../providers/places.dart';
 import 'circle_button.dart';
 import 'dash.dart';
 import 'places_on_track_list.dart';
+import 'progress_bar.dart';
+import 'sticky_section.dart';
 
 class SliderTrackMenu extends StatelessWidget {
   SliderTrackMenu(this.scrollController);
@@ -74,19 +74,9 @@ class SliderTrackMenu extends StatelessWidget {
               controller: scrollController,
               child: Column(
                 children: <Widget>[
-                  StickyHeader(
-                    header: Container(
-                      width: MediaQuery.of(context).size.width,
-                      color: Colors.white,
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 24, vertical: 10),
-                      child: Text("Opis:",
-                          style: Theme.of(context)
-                              .textTheme
-                              .title
-                              .copyWith(fontWeight: FontWeight.w600)),
-                    ),
-                    content: Align(
+                  StickySection(
+                    title: "Opis:",
+                    child: Align(
                       alignment: Alignment.topLeft,
                       child: Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 24),
@@ -94,20 +84,10 @@ class SliderTrackMenu extends StatelessWidget {
                       ),
                     ),
                   ),
-                  const SizedBox(height: 36),
-                  StickyHeader(
-                    header: Container(
-                      width: MediaQuery.of(context).size.width,
-                      color: Colors.white,
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 24, vertical: 10),
-                      child: Text("Punkty:",
-                          style: Theme.of(context)
-                              .textTheme
-                              .title
-                              .copyWith(fontWeight: FontWeight.w600)),
-                    ),
-                    content: Align(
+                  const SizedBox(height: 18),
+                  StickySection(
+                    title: "Punkty:",
+                    child: Align(
                       alignment: Alignment.topLeft,
                       child: PlacesOnTrackList(),
                     ),
