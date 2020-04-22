@@ -41,6 +41,7 @@ class Places with ChangeNotifier {
     _places = placesJson
         .map((jsonMap) => Place.fromJson(jsonMap, showDetails))
         .toList();
+    _places = _places.reversed.toList();
     if (rebuild) notifyListeners();
   }
 
