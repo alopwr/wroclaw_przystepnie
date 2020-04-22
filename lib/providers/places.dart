@@ -16,6 +16,7 @@ class Places with ChangeNotifier {
   final panelController = PanelController();
 
   GoogleMapController googleMapsController;
+  ScrollController panelScrollController;
 
   List<Place> _places = [];
   Track currentTrack;
@@ -47,6 +48,7 @@ class Places with ChangeNotifier {
 
   void setVisiblePlacesFilter(Track track) {
     currentTrack = track;
+    panelScrollController.jumpTo(0);
     panelController.close();
     notifyListeners();
     focusOnVisible();
@@ -55,7 +57,10 @@ class Places with ChangeNotifier {
   void clearFilter({bool close = false, bool zoomOut = false}) {
     currentTrack = null;
     notifyListeners();
-    if (close) panelController.close();
+    if (close) {
+      panelScrollController.jumpTo(0);
+      panelController.close();
+    }
     if (zoomOut) focusOnVisible();
   }
 
@@ -76,6 +81,7 @@ class Places with ChangeNotifier {
 
   void showDetails(int id) {
     if (id == null) return;
+    panelScrollController.jumpTo(0);
     panelController.close();
     _activePlaceId = id;
     googleMapsController.animateCamera(
@@ -91,6 +97,7 @@ class Places with ChangeNotifier {
 
   void showMenu() {
     _activePlaceId = null;
+    panelScrollController.jumpTo(0);
     panelController.close();
     notifyListeners();
   }

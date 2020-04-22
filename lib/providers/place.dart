@@ -39,13 +39,6 @@ class Place with ChangeNotifier {
         showDetails(id);
       },
     );
-
-    this.mediaSet.add(Media.fromJson({
-          'file': "https://source.unsplash.com/1900x3600/?camera,paper",
-          'id': 888,
-          "name": "ben duzy obraz",
-          'type': "image"
-        }));
   }
 
   int id;

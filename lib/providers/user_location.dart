@@ -35,6 +35,7 @@ class UserLocationManager with ChangeNotifier {
     Position position = await Geolocator().getCurrentPosition(
         desiredAccuracy: LocationAccuracy.high,
         locationPermissionLevel: GeolocationPermission.locationWhenInUse);
+    places.panelScrollController.jumpTo(0);
     places.panelController.close();
     await places.googleMapsController.animateCamera(
       CameraUpdate.newCameraPosition(
