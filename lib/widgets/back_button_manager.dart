@@ -39,7 +39,6 @@ class BackButtonManager extends StatelessWidget {
           places.clearFilter(close: true, zoomOut: true);
           return Future.delayed(Duration.zero, () => false);
         } else if (!places.panelController.isPanelClosed) {
-          places.panelScrollController.jumpTo(0);
           places.panelController.close();
           return Future.delayed(Duration.zero, () => false);
         }
