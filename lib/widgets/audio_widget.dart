@@ -35,25 +35,29 @@ class _AudioWidgetState extends State<AudioWidget>
     _animationController = AnimationController(
         vsync: this, duration: const Duration(milliseconds: 300));
     audioPlayer.onDurationChanged.listen((Duration d) {
-      print('Max duration: $d');
       setState(() {
         duration = d;
       });
     });
     audioPlayer.onAudioPositionChanged.listen((Duration p) {
-      print('Current position: $p');
       setState(() {
         position = p;
       });
     });
     audioPlayer.onPlayerStateChanged.listen((AudioPlayerState s) {
-      print('Current player state: $s');
       setState(() {
         playerState = s;
         if (_isPlaying)
           _animationController.forward();
         else
           _animationController.reverse();
+      });
+    });
+    audioPlayer.onPlayerError.listen((msg) {
+      setState(() {
+        playerState = AudioPlayerState.STOPPED;
+        duration = const Duration(seconds: 0);
+        position = const Duration(seconds: 0);
       });
     });
   }
@@ -69,6 +73,7 @@ class _AudioWidgetState extends State<AudioWidget>
               icon: AnimatedIcon(
                 icon: AnimatedIcons.play_pause,
                 progress: _animationController,
+                size: 30,
               ),
               onPressed: _isPlaying
                   ? () => audioPlayer.pause()
