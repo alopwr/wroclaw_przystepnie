@@ -1,9 +1,6 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../providers/track.dart';
 import '../providers/tracks.dart';
 import '../providers/places.dart';
 import 'progress_bar.dart';

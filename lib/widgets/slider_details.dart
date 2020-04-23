@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 
 import '../providers/place.dart';
 import '../providers/places.dart';
+import 'audio_widget.dart';
 import 'circle_button.dart';
 import 'dash.dart';
 import 'photo_gallery.dart';
@@ -80,6 +81,14 @@ class SliderDetails extends StatelessWidget {
                     title: "Multimedia:",
                     child: PhotoGallery(place),
                   ),
+                  StickySection(
+                      title: "Audio",
+                      child: ListView(
+                          padding: const EdgeInsets.symmetric(horizontal: 24),
+                          shrinkWrap: true,
+                          children: place.audioSet
+                              .map((audio) => AudioWidget(audio))
+                              .toList())),
                 ],
               ),
             ),

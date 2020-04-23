@@ -19,9 +19,9 @@ class PhotoGallery extends StatelessWidget {
       mainAxisSpacing: 10,
       shrinkWrap: true,
       children: <Widget>[
-        for (var indx = 0; indx < place.mediaSet.length; indx++)
+        for (var indx = 0; indx < place.mediaGallerySet.length; indx++)
           PhotoGalleryItem(
-            media: place.mediaSet[indx],
+            media: place.mediaGallerySet[indx],
             onTap: () {
               open(context, indx);
             },
@@ -35,7 +35,7 @@ class PhotoGallery extends StatelessWidget {
       context,
       MaterialPageRoute(
         builder: (context) => FullscreenGalleryWrapper(
-          mediaSet: place.mediaSet,
+          mediaSet: place.mediaGallerySet,
           backgroundDecoration: const BoxDecoration(color: Colors.black),
           initialIndex: index,
         ),

@@ -47,4 +47,10 @@ class Place with ChangeNotifier {
   LatLng location;
   List<Media> mediaSet;
   Marker marker;
+
+  List<Media> get mediaGallerySet =>
+      mediaSet.where((element) => element.type == MediaType.image).toList();
+
+  List<Media> get audioSet =>
+      mediaSet.where((element) => element.type == MediaType.audio).toList();
 }
