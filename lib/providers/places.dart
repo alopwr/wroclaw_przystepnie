@@ -63,7 +63,7 @@ class Places with ChangeNotifier {
 
   void focusOnVisible() {
     final bounds = visibleMarkersBounds;
-    googleMapsController.animateCamera(CameraUpdate.newLatLngBounds(
+    googleMapsController?.animateCamera(CameraUpdate.newLatLngBounds(
       LatLngBounds(
         southwest: bounds['southwest'],
         northeast: bounds['northeast'],
@@ -80,7 +80,7 @@ class Places with ChangeNotifier {
     if (id == null) return;
     panelController.close();
     _activePlaceId = id;
-    googleMapsController.animateCamera(
+    googleMapsController?.animateCamera(
       CameraUpdate.newCameraPosition(
         CameraPosition(
           target: activePlace.location,
@@ -111,7 +111,7 @@ class Places with ChangeNotifier {
     googleMapsController = controller;
     Future.delayed(Duration(milliseconds: 100), () {
       final bounds = visibleMarkersBounds;
-      googleMapsController.moveCamera(CameraUpdate.newLatLngBounds(
+      googleMapsController?.moveCamera(CameraUpdate.newLatLngBounds(
         LatLngBounds(
           southwest: bounds['southwest'],
           northeast: bounds['northeast'],

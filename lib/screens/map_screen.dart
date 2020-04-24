@@ -48,16 +48,17 @@ class MapScreen extends StatefulWidget {
   MapScreenState createState() => MapScreenState();
 }
 
-class MapScreenState extends State<MapScreen> {
+class MapScreenState extends State<MapScreen>{
   double _fabHeight = 120;
   final _collapsedPanelSituationFabHeight = 120.0;
 
   double _panelHeightOpen;
   double _panelHeightClosed = 95.0;
 
-  double _trackBadgeTop = 30;
+  double _trackBadgeTop = 30.0;
   final _collapsedPanelSituationTrackBadgeTop = 30;
 
+  double corner = 18;
   @override
   void initState() {
     super.initState();
@@ -97,14 +98,21 @@ class MapScreenState extends State<MapScreen> {
           ),
           panelBuilder: (sc) => SliderPanel(sc),
           borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(18.0), topRight: Radius.circular(18.0)),
-          onPanelSlide: (double pos) => setState(() {
-            _fabHeight = pos * (_panelHeightOpen - _panelHeightClosed) +
-                _collapsedPanelSituationFabHeight;
-            _trackBadgeTop =
-                .5 * pos * (_panelHeightOpen - _panelHeightClosed) +
-                    _collapsedPanelSituationTrackBadgeTop;
-          }),
+              topLeft: Radius.circular(corner),
+              topRight: Radius.circular(corner)),
+          onPanelSlide: (double pos) {
+            setState(() {
+              _fabHeight = pos * (_panelHeightOpen - _panelHeightClosed) +
+                  _collapsedPanelSituationFabHeight;
+              _trackBadgeTop =
+                  .5 * pos * (_panelHeightOpen - _panelHeightClosed) +
+                      _collapsedPanelSituationTrackBadgeTop;
+              if (pos < 1)
+                corner = 18;
+              else
+                corner = 0;
+            });
+          },
         ),
         Positioned(
           top: 0,
