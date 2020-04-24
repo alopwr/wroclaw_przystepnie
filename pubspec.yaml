@@ -39,6 +39,7 @@ dependencies:
   photo_view: ^0.9.2
   transparent_image: ^1.0.0
   audioplayers: ^0.15.1
+  hive: ^1.4.1+1
 
 dev_dependencies:
   flutter_test:
