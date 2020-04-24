@@ -82,7 +82,7 @@ class SliderDetails extends StatelessWidget {
                     child: PhotoGallery(place),
                   ),
                   StickySection(
-                      title: "Audio",
+                      title: "Audio:",
                       child: ListView(
                           padding: const EdgeInsets.symmetric(horizontal: 24),
                           shrinkWrap: true,
