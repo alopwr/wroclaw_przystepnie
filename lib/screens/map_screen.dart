@@ -8,6 +8,8 @@ import '../providers/places.dart';
 import '../widgets/current_track_chip.dart';
 import '../widgets/location_warning_badge.dart';
 import '../widgets/map.dart';
+import '../widgets/refreshing_indicator_badge.dart';
+import '../widgets/offline_warning_badge.dart';
 import '../widgets/slider_panel.dart';
 import '../widgets/status_blur.dart';
 import '../widgets/user_location_button.dart';
@@ -17,23 +19,40 @@ class MapScreenLoader extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: FutureBuilder(
-        future: Provider.of<Places>(context, listen: false).fetchPlaces(),
+        future: Provider.of<Places>(context, listen: false).cachedPlaces(),
         builder: (context, dataSnapshot) => Stack(
           children: <Widget>[
             MapScreen(),
-            if (dataSnapshot.connectionState == ConnectionState.waiting)
+            if (dataSnapshot.connectionState == ConnectionState.waiting ||
+                dataSnapshot.hasError)
               ModalBarrier(
-                color: Colors.black38,
+                color: Colors.black45,
                 dismissible: false,
               ),
             if (dataSnapshot.connectionState == ConnectionState.waiting)
-              Center(
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: <Widget>[
+              const Center(
+                child:
+                    // Column(
+                    // mainAxisSize: MainAxisSize.min,
+                    // children: <Widget>[
                     const CircularProgressIndicator(),
-                    const Text("Pobieranie danych...")
-                  ],
+                // const Text("Pobieranie danych...")
+                // ],
+                // ),
+              ),
+            if (dataSnapshot.hasError)
+              Center(
+                child: Container(
+                  color: Colors.white,
+                  padding: const EdgeInsets.all(35),
+                  child: FittedBox(
+                    child: Text(
+                      "Wystąpił błąd pobierania danych z serwera.\nSpróbuj ponownie\n${dataSnapshot.error}",
+                      softWrap: true,
+                      style: TextStyle(
+                          color: Theme.of(context).errorColor, fontSize: 40),
+                    ),
+                  ),
                 ),
               ),
           ],
@@ -48,7 +67,7 @@ class MapScreen extends StatefulWidget {
   MapScreenState createState() => MapScreenState();
 }
 
-class MapScreenState extends State<MapScreen>{
+class MapScreenState extends State<MapScreen> {
   double _fabHeight = 120;
   final _collapsedPanelSituationFabHeight = 120.0;
 
@@ -128,7 +147,16 @@ class MapScreenState extends State<MapScreen>{
           right: 5,
           child: LocationWarningBadge(),
         ),
-
+        Positioned(
+          top: 30,
+          right: 5,
+          child: RefreshIndicatorBadge(),
+        ),
+        Positioned(
+          top: 30,
+          right: 5,
+          child: OfflineWarningBadge(),
+        ),
         //the SlidingUpPanel Title
         // Positioned(
         //   top: 52.0,

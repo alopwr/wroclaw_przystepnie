@@ -1,8 +1,11 @@
+import 'dart:convert';
+import 'dart:io';
 import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:hive/hive.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 
 import '../helpers/http_helper.dart';
@@ -13,9 +16,11 @@ import 'track.dart';
 class Places with ChangeNotifier {
   Places({this.auth});
   Auth auth;
-  final panelController = PanelController();
 
+  final panelController = PanelController();
   GoogleMapController googleMapsController;
+  bool refreshingBadge;
+  bool offlineBadge = false;
 
   List<Place> _places = [];
   Track currentTrack;
@@ -36,13 +41,40 @@ class Places with ChangeNotifier {
 
   List<int> get _visiblePlacesIds => currentTrack?.places;
 
-  Future<void> fetchPlaces({bool rebuild = true}) async {
+  Future<void> fetchPlaces() async {
     var placesJson = await HttpHelper.fetchPlaces(auth.headers);
-    _places = placesJson
+    await Future.delayed(Duration(seconds: 5));
+    parsePlaces(placesJson);
+  }
+
+  Future<void> refreshPlaces() async {
+    try {
+      await fetchPlaces();
+    } on SocketException {
+      offlineBadge = true;
+    }
+    refreshingBadge = false;
+    notifyListeners();
+  }
+
+  Future<void> cachedPlaces() async {
+    var cache = Hive.box("cacheJson").get('placesJson');
+    if (cache == null) {
+      refreshingBadge = false;
+      await fetchPlaces();
+      notifyListeners();
+      return;
+    }
+    parsePlaces(List<Map<String, dynamic>>.from(json.decode(cache)));
+    notifyListeners();
+    refreshPlaces();
+  }
+
+  void parsePlaces(List<Map<String, dynamic>> jsonMaps) {
+    _places = jsonMaps
         .map((jsonMap) => Place.fromJson(jsonMap, showDetails))
         .toList();
     _places = _places.reversed.toList();
-    if (rebuild) notifyListeners();
   }
 
   void setVisiblePlacesFilter(Track track) {
@@ -109,16 +141,16 @@ class Places with ChangeNotifier {
 
   void onMapCreated(GoogleMapController controller) {
     googleMapsController = controller;
-    Future.delayed(Duration(milliseconds: 100), () {
-      final bounds = visibleMarkersBounds;
-      googleMapsController?.moveCamera(CameraUpdate.newLatLngBounds(
-        LatLngBounds(
-          southwest: bounds['southwest'],
-          northeast: bounds['northeast'],
-        ),
-        30,
-      ));
-    });
+    // Future.delayed(Duration(milliseconds: 100), () {
+    //   final bounds = visibleMarkersBounds;
+    //   googleMapsController?.moveCamera(CameraUpdate.newLatLngBounds(
+    //     LatLngBounds(
+    //       southwest: bounds['southwest'],
+    //       northeast: bounds['northeast'],
+    //     ),
+    //     30,
+    //   ));
+    // });
   }
 
   List<int> get placesIds => places.map((e) => e.id).toList();

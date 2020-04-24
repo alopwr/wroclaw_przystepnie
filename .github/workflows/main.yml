@@ -1,5 +1,5 @@
 on: [push,pull_request]
-name: Test, Build and Release apk
+name: Build and Release apk
 jobs:
   build:
     name: Build APK

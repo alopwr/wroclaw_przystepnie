@@ -1,9 +1,10 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:sentry/sentry.dart';
-import 'package:wroclaw_przystepnie/widgets/back_button_manager.dart';
 
 import 'providers/auth.dart';
 import 'providers/places.dart';
@@ -12,6 +13,7 @@ import 'providers/user_location.dart';
 import 'screens/login_screen.dart';
 import 'screens/map_screen.dart';
 import 'sentry_message.dart';
+import 'widgets/back_button_manager.dart';
 
 final SentryClient _sentry = SentryClient(
     dsn:
@@ -50,6 +52,8 @@ void main() {
     }
   };
   runZoned<Future<Null>>(() async {
+    await Hive.initFlutter();
+    await Hive.openBox("cacheJson");
     runApp(MyApp());
   }, onError: (error, stackTrace) async {
     await _reportSentryError(error, stackTrace);

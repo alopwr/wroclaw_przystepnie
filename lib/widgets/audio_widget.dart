@@ -24,8 +24,8 @@ class _AudioWidgetState extends State<AudioWidget>
 
   @override
   void dispose() {
-    audioPlayer.release();
     audioPlayer.dispose();
+    audioPlayer.release();
     super.dispose();
   }
 

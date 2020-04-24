@@ -40,10 +40,14 @@ dependencies:
   transparent_image: ^1.0.0
   audioplayers: ^0.15.1
   hive: ^1.4.1+1
+  hive_flutter: ^0.3.0+2
 
+  
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  hive_generator: ^0.7.0+2
+  build_runner: ^1.9.0
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
