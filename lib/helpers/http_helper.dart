@@ -25,7 +25,8 @@ class HttpHelper {
       url,
       headers: headers,
     );
-    return List<Map<String, dynamic>>.from(
-        json.decode(utf8.decode(response.bodyBytes)));
+    var text = utf8.decode(response.bodyBytes);
+    Hive.box('cacheJson').put("tracksJson", text);
+    return List<Map<String, dynamic>>.from(json.decode(text));
   }
 }

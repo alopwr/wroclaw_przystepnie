@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../providers/places.dart';
+import '../providers/tracks.dart';
 
 class OfflineWarningBadge extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    if (Provider.of<Places>(context).offlineBadge)
+    if (Provider.of<Places>(context).offlineBadge ||
+        Provider.of<Tracks>(context).offlineBadge)
       return FloatingActionButton(
         child: const Icon(
           Icons.error_outline,

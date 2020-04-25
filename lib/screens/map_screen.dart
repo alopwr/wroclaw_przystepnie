@@ -31,14 +31,7 @@ class MapScreenLoader extends StatelessWidget {
               ),
             if (dataSnapshot.connectionState == ConnectionState.waiting)
               const Center(
-                child:
-                    // Column(
-                    // mainAxisSize: MainAxisSize.min,
-                    // children: <Widget>[
-                    const CircularProgressIndicator(),
-                // const Text("Pobieranie danych...")
-                // ],
-                // ),
+                child: const CircularProgressIndicator(),
               ),
             if (dataSnapshot.hasError)
               Center(
@@ -47,7 +40,7 @@ class MapScreenLoader extends StatelessWidget {
                   padding: const EdgeInsets.all(35),
                   child: FittedBox(
                     child: Text(
-                      "Wystąpił błąd pobierania danych z serwera.\nSpróbuj ponownie\n${dataSnapshot.error}",
+                      "Wystąpił błąd pobierania danych z serwera.\nSpróbuj ponownie",
                       softWrap: true,
                       style: TextStyle(
                           color: Theme.of(context).errorColor, fontSize: 40),

@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../providers/places.dart';
+import '../providers/tracks.dart';
 
 class RefreshIndicatorBadge extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    if (Provider.of<Places>(context).refreshingBadge ?? true)
+    if ((Provider.of<Places>(context).refreshingBadge ?? true) ||
+        (Provider.of<Tracks>(context).refreshingBadge ?? true))
       return FloatingActionButton(
         child: Column(
           mainAxisSize: MainAxisSize.min,
