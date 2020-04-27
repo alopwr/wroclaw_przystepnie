@@ -67,28 +67,31 @@ class SliderDetails extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  StickySection(
-                    title: "Opis:",
-                    child: Align(
-                      alignment: Alignment.topLeft,
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 24),
-                        child: ExpandText(place.description),
+                  if (place.description.length > 0)
+                    StickySection(
+                      title: "Opis:",
+                      child: Align(
+                        alignment: Alignment.topLeft,
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 24),
+                          child: ExpandText(place.description),
+                        ),
                       ),
                     ),
-                  ),
-                  StickySection(
-                    title: "Multimedia:",
-                    child: PhotoGallery(place),
-                  ),
-                  StickySection(
-                      title: "Audio:",
-                      child: ListView(
-                          padding: const EdgeInsets.symmetric(horizontal: 24),
-                          shrinkWrap: true,
-                          children: place.audioSet
-                              .map((audio) => AudioWidget(audio))
-                              .toList())),
+                  if (place.mediaGallerySet.length > 0)
+                    StickySection(
+                      title: "Multimedia:",
+                      child: PhotoGallery(place),
+                    ),
+                  if (place.audioSet.length > 0)
+                    StickySection(
+                        title: "Audio:",
+                        child: ListView(
+                            padding: const EdgeInsets.symmetric(horizontal: 24),
+                            shrinkWrap: true,
+                            children: place.audioSet
+                                .map((audio) => AudioWidget(audio))
+                                .toList())),
                 ],
               ),
             ),
