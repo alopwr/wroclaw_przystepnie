@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import '../providers/place.dart';
 import '../providers/places.dart';
 import 'audio_widget.dart';
+import 'check_in_helper.dart';
 import 'circle_button.dart';
 import 'dash.dart';
 import 'photo_gallery.dart';
@@ -45,10 +46,13 @@ class SliderDetails extends StatelessWidget {
             // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
               CircleButton(
-                label: "Oznacz jako\nodwiedzone",
-                color: Colors.green,
+                label:
+                    place.isVisited ? "Odwiedzone" : "Oznacz jako\nodwiedzone",
+                color: place.isVisited ? Colors.grey : Colors.green,
                 icon: Icons.check,
-                onPressed: () {},
+                onPressed: place.isVisited
+                    ? null
+                    : () => markAsVisited(context, place.id),
               ),
               CircleButton(
                 label: "Wróć",

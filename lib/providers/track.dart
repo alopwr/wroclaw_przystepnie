@@ -9,4 +9,7 @@ class Track {
   int id;
   String description;
   List<int> places;
+  void increaseVisited() {
+    
+  }
 }

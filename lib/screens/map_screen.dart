@@ -8,8 +8,8 @@ import '../providers/places.dart';
 import '../widgets/current_track_chip.dart';
 import '../widgets/location_warning_badge.dart';
 import '../widgets/map.dart';
-import '../widgets/refreshing_indicator_badge.dart';
 import '../widgets/offline_warning_badge.dart';
+import '../widgets/refreshing_indicator_badge.dart';
 import '../widgets/slider_panel.dart';
 import '../widgets/status_blur.dart';
 import '../widgets/user_location_button.dart';
@@ -150,7 +150,15 @@ class MapScreenState extends State<MapScreen> {
           right: 5,
           child: OfflineWarningBadge(),
         ),
-        //the SlidingUpPanel Title
+        // RepaintBoundary(
+        //   key: capturingKey,
+        //   child: Icon(
+        //     MyCustomIcons.map_marker_check,
+        //     color: Colors.green,
+        //     size: 42,
+        //   ),
+        // ),
+        // //the SlidingUpPanel Title
         // Positioned(
         //   top: 52.0,
         //   child: Container(

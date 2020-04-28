@@ -41,6 +41,7 @@ dependencies:
   audioplayers: ^0.15.1
   hive: ^1.4.1+1
   hive_flutter: ^0.3.0+2
+  vibration: 1.2.2
 
   
 dev_dependencies:

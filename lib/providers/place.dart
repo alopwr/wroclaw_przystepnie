@@ -1,5 +1,8 @@
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+
+import '../helpers/widget_to_image_converter.dart';
 
 enum MediaType { image, audio, video }
 
@@ -32,12 +35,14 @@ class Place with ChangeNotifier {
     this.mediaSet = List<Map<String, dynamic>>.from(jsonMap['media_set'])
         .map((e) => Media.fromJson(e))
         .toList();
+    this.isVisited = jsonMap['visited'];
     this.marker = Marker(
       markerId: MarkerId("marker-place-id-$id"),
       position: location,
       onTap: () {
         showDetails(id);
       },
+      icon: isVisited ? WidgetToImageConverter.tickedMarkerIcon : null,
     );
   }
 
@@ -47,6 +52,7 @@ class Place with ChangeNotifier {
   LatLng location;
   List<Media> mediaSet;
   Marker marker;
+  bool isVisited;
 
   List<Media> get mediaGallerySet =>
       mediaSet.where((element) => element.type == MediaType.image).toList();

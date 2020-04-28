@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:wroclaw_przystepnie/providers/places.dart';
+
+import '../providers/places.dart';
+import 'custom_icons.dart';
 
 class PlacesOnTrackList extends StatelessWidget {
   @override
@@ -21,9 +23,13 @@ class PlacesOnTrackList extends StatelessWidget {
                         .copyWith(fontWeight: FontWeight.bold),
                   ),
                   trailing: Icon(
-                    Icons.place,
+                    place.isVisited
+                        ? MyCustomIcons.map_marker_check
+                        : Icons.place,
                     size: 28,
-                    color: Theme.of(context).primaryColor,
+                    color: place.isVisited
+                        ? Colors.green
+                        : Theme.of(context).primaryColor,
                   ),
                   onTap: () => places.showDetails(place.id),
                 ),

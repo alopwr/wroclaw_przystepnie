@@ -57,4 +57,11 @@ class Tracks with ChangeNotifier {
     _tracks = tracksJson.map((jsonMap) => Track.fromJson(jsonMap)).toList();
     _tracks = _tracks.reversed.toList();
   }
+
+  void markAsVisited(int placeId) {
+    var track =
+        tracks.firstWhere((element) => element.places.contains(placeId));
+    track.increaseVisited();
+    refreshTracks();
+  }
 }

@@ -25,7 +25,7 @@ bool get isInDebugMode {
   return inDebugMode;
 }
 
-Future<Null> _reportSentryError(dynamic error, dynamic stackTrace) async {
+Future<Null> reportSentryError(dynamic error, dynamic stackTrace) async {
   print('Caught error: $error');
   if (isInDebugMode) {
     print(stackTrace);
@@ -54,9 +54,10 @@ void main() {
   runZoned<Future<Null>>(() async {
     await Hive.initFlutter();
     await Hive.openBox("cacheJson");
+    // Future.delayed(Duration(seconds: 10), WidgetToImageConverter.captureWidget);
     runApp(MyApp());
   }, onError: (error, stackTrace) async {
-    await _reportSentryError(error, stackTrace);
+    await reportSentryError(error, stackTrace);
   });
 }
 
