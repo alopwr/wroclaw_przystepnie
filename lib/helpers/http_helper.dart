@@ -60,7 +60,7 @@ class HttpHelper {
     var decoded = json.decode(text);
     var success = decoded['place'] == id;
     if (success && context != null)
-      Provider.of<Tracks>(context).markAsVisited(id);
+      Provider.of<Tracks>(context, listen: false).markAsVisited(id);
 
     return success;
   }
