@@ -96,7 +96,6 @@ class SliderTrackMenu extends StatelessWidget {
               ),
             ),
           ),
-          const SizedBox(height: 24),
         ],
       ),
     );

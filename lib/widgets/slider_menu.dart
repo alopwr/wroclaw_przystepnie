@@ -98,7 +98,6 @@ class SliderMenu extends StatelessWidget {
                 ),
               ),
             ),
-            const SizedBox(height: 24),
           ],
         ));
   }

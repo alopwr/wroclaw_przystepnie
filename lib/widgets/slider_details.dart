@@ -100,7 +100,6 @@ class SliderDetails extends StatelessWidget {
               ),
             ),
           ),
-          const SizedBox(height: 24),
         ],
       ),
     );

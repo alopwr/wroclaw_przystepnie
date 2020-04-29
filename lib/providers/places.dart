@@ -110,7 +110,6 @@ class Places with ChangeNotifier {
 
   void showDetails(int id) {
     if (id == null) return;
-    panelController.close();
     _activePlaceId = id;
     googleMapsController?.animateCamera(
       CameraUpdate.newCameraPosition(
@@ -121,6 +120,7 @@ class Places with ChangeNotifier {
       ),
     );
     notifyListeners();
+    panelController.animatePanelToSnapPoint();
   }
 
   void showMenu() {
