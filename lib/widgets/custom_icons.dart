@@ -23,4 +23,5 @@ class MyCustomIcons {
 
   static const IconData dice_3 = IconData(0xe800, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData map_marker_check = IconData(0xe801, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData map_marker_distance = IconData(0xe804, fontFamily: _kFontFam, fontPackage: _kFontPkg);
 }

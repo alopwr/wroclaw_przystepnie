@@ -46,4 +46,16 @@ class UserLocationManager with ChangeNotifier {
       ),
     );
   }
+
+  Future<bool> placeDistanceValidation(LatLng location) async {
+    await permissionHandling();
+    Position position = await Geolocator().getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.high,
+        locationPermissionLevel: GeolocationPermission.locationWhenInUse);
+    var distance = await Geolocator().distanceBetween(location.latitude,
+        location.longitude, position.latitude, position.longitude);
+
+    if (distance > 50) return false;
+    return true;
+  }
 }
