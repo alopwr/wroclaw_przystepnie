@@ -59,4 +59,16 @@ class Place with ChangeNotifier {
 
   List<Media> get audioSet =>
       mediaSet.where((element) => element.type == MediaType.audio).toList();
+
+  void refreshMarker(Function(int) showDetails) {
+    this.marker = Marker(
+      markerId: MarkerId("marker-place-id-$id"),
+      position: location,
+      onTap: () {
+        showDetails(id);
+      },
+      icon: isVisited ? WidgetToImageConverter.tickedMarkerIcon : null,
+    );
+    notifyListeners();
+  }
 }

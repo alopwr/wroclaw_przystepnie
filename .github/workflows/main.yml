@@ -15,6 +15,7 @@ jobs:
     - run: flutter pub get
     - run: flutter build apk
     - name: Create a Release APK
+      if: startsWith(github.ref, 'refs/tags/')
       uses: ncipollo/release-action@v1
       with:
         artifacts: "build/app/outputs/apk/release/*.apk"

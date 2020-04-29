@@ -141,16 +141,7 @@ class Places with ChangeNotifier {
 
   void onMapCreated(GoogleMapController controller) {
     googleMapsController = controller;
-    // Future.delayed(Duration(milliseconds: 100), () {
-    //   final bounds = visibleMarkersBounds;
-    //   googleMapsController?.moveCamera(CameraUpdate.newLatLngBounds(
-    //     LatLngBounds(
-    //       southwest: bounds['southwest'],
-    //       northeast: bounds['northeast'],
-    //     ),
-    //     30,
-    //   ));
-    // });
+    Future.delayed(Duration(milliseconds: 100), focusOnVisible);
   }
 
   List<int> get placesIds => places.map((e) => e.id).toList();
@@ -179,7 +170,9 @@ class Places with ChangeNotifier {
 
     var placeId = places.indexWhere((element) => element.id == id);
     _places[placeId] = places[placeId]..isVisited = true;
+    _places[placeId].refreshMarker(showDetails);
     refreshingBadge = true;
+
     notifyListeners();
     refreshPlaces();
     return true;
