@@ -19,6 +19,7 @@ class Places with ChangeNotifier {
 
   final panelController = PanelController();
   GoogleMapController googleMapsController;
+  ScrollController _scrollController;
   bool refreshingBadge;
   bool offlineBadge = false;
 
@@ -80,6 +81,7 @@ class Places with ChangeNotifier {
   void setVisiblePlacesFilter(Track track) {
     currentTrack = track;
     panelController.close();
+    scrollController.jumpTo(0);
     notifyListeners();
     focusOnVisible();
   }
@@ -89,6 +91,7 @@ class Places with ChangeNotifier {
     notifyListeners();
     if (close) {
       panelController.close();
+      scrollController.jumpTo(0);
     }
     if (zoomOut) focusOnVisible();
   }
@@ -126,6 +129,7 @@ class Places with ChangeNotifier {
   void showMenu() {
     _activePlaceId = null;
     panelController.close();
+    scrollController.jumpTo(0);
     notifyListeners();
   }
 
@@ -177,4 +181,10 @@ class Places with ChangeNotifier {
     refreshPlaces();
     return true;
   }
+
+  set scrollController(ScrollController value) {
+    _scrollController = value;
+  }
+
+  ScrollController get scrollController => _scrollController;
 }

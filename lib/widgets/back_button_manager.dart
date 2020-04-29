@@ -40,6 +40,7 @@ class BackButtonManager extends StatelessWidget {
           return Future.delayed(Duration.zero, () => false);
         } else if (!places.panelController.isPanelClosed) {
           places.panelController.close();
+          places.scrollController.jumpTo(0);
           return Future.delayed(Duration.zero, () => false);
         }
         return exitDialog(context);

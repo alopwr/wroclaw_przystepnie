@@ -4,9 +4,7 @@ import '../providers/track.dart';
 
 class ProgressBar extends StatelessWidget {
   ProgressBar(this.track);
-
   final Track track;
-  
   @override
   Widget build(BuildContext context) {
     return Row(
