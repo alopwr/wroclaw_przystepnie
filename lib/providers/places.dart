@@ -9,6 +9,7 @@ import 'package:hive/hive.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 
 import '../helpers/http_helper.dart';
+import '../widgets/map_style.dart';
 import 'auth.dart';
 import 'place.dart';
 import 'track.dart';
@@ -145,6 +146,7 @@ class Places with ChangeNotifier {
 
   void onMapCreated(GoogleMapController controller) {
     googleMapsController = controller;
+    googleMapsController.setMapStyle(mapStyle);
     Future.delayed(Duration(milliseconds: 100), focusOnVisible);
   }
 
