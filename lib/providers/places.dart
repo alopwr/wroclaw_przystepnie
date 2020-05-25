@@ -4,14 +4,19 @@ import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:hive/hive.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 
 import '../helpers/http_helper.dart';
+import '../helpers/locator.dart';
+import '../widgets/global_dialogs.dart';
+import '../widgets/wrong_order_popup.dart';
 import 'auth.dart';
 import 'place.dart';
 import 'track.dart';
+import 'tracks.dart';
 
 class Places with ChangeNotifier {
   Places({this.auth});
@@ -75,7 +80,7 @@ class Places with ChangeNotifier {
     _places = jsonMaps
         .map((jsonMap) => Place.fromJson(jsonMap, showDetails))
         .toList();
-    _places = _places.reversed.toList();
+    _places = _places.toList();
   }
 
   void setVisiblePlacesFilter(Track track) {
@@ -111,8 +116,22 @@ class Places with ChangeNotifier {
 
   bool get showDetailView => _activePlaceId != null;
 
-  void showDetails(int id) {
+  void showDetails(int id) async {
     if (id == null) return;
+
+    var place = places.firstWhere((element) => element.id == id);
+    if (place.wrongOrder) {
+      var result = await showDialog(
+          context:
+              locator<GlobalKey<GlobalContextProviderState>>().currentContext,
+          child: WrongOrderPopup());
+      if (result == null) return;
+      if (result == DialogOptions.showProperPoint) {
+        showDetails(locator<Tracks>().properPoint(id).id);
+        return;
+      }
+    }
+
     _activePlaceId = id;
     googleMapsController?.animateCamera(
       CameraUpdate.newCameraPosition(

@@ -6,6 +6,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:sentry/sentry.dart';
 
+import 'helpers/locator.dart';
 import 'providers/auth.dart';
 import 'providers/places.dart';
 import 'providers/tracks.dart';
@@ -14,6 +15,7 @@ import 'screens/login_screen.dart';
 import 'screens/map_screen.dart';
 import 'sentry_message.dart';
 import 'widgets/back_button_manager.dart';
+import 'widgets/global_dialogs.dart';
 
 final SentryClient _sentry = SentryClient(
     dsn:
@@ -51,6 +53,7 @@ void main() {
       Zone.current.handleUncaughtError(details.exception, details.stack);
     }
   };
+  setupLocator();
   runZoned<Future<Null>>(() async {
     await Hive.initFlutter();
     await Hive.openBox("cacheJson");
@@ -69,16 +72,16 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(create: (_) => Auth()),
         ChangeNotifierProxyProvider<Auth, Places>(
-          create: (_) => Places(),
-          update: (_, auth, __) => Places(auth: auth),
+          create: (_) => locator<Places>(),
+          update: (_, auth, __) => newPlaces(auth: auth),
         ),
         ChangeNotifierProxyProvider<Places, UserLocationManager>(
           create: (_) => UserLocationManager(),
           update: (_, places, __) => UserLocationManager(places: places),
         ),
         ChangeNotifierProxyProvider<Auth, Tracks>(
-          create: (_) => Tracks(),
-          update: (_, auth, __) => Tracks(auth: auth),
+          create: (_) => locator<Tracks>(),
+          update: (_, auth, __) => newTracks(auth: auth),
         ),
       ],
       child: Consumer<Auth>(
@@ -86,13 +89,16 @@ class MyApp extends StatelessWidget {
           title: 'Wrocław Przystępnie',
           theme:
               ThemeData(primarySwatch: Colors.orange, fontFamily: "Helvetica"),
-          home: auth.loggingProcess
-              ? Scaffold(
-                  body: const SafeArea(
-                      child: Center(child: CircularProgressIndicator())))
-              : BackButtonManager(
-                  child: auth.isAuthed ? MapScreenLoader() : LoginScreen(),
-                ),
+          home: GlobalContextProvider(
+            key: locator<GlobalKey<GlobalContextProviderState>>(),
+            child: auth.loggingProcess
+                ? Scaffold(
+                    body: const SafeArea(
+                        child: Center(child: CircularProgressIndicator())))
+                : BackButtonManager(
+                    child: auth.isAuthed ? MapScreenLoader() : LoginScreen(),
+                  ),
+          ),
         ),
       ),
     );

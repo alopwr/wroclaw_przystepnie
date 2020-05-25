@@ -44,6 +44,7 @@ class Place with ChangeNotifier {
       },
       icon: isVisited ? WidgetToImageConverter.tickedMarkerIcon : null,
     );
+    this.wrongOrder = jsonMap['wrong_order'];
   }
 
   int id;
@@ -53,6 +54,7 @@ class Place with ChangeNotifier {
   List<Media> mediaSet;
   Marker marker;
   bool isVisited;
+  bool wrongOrder;
 
   List<Media> get mediaGallerySet =>
       mediaSet.where((element) => element.type == MediaType.image).toList();

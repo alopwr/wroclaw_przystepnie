@@ -6,6 +6,7 @@ import 'package:hive/hive.dart';
 
 import '../helpers/http_helper.dart';
 import 'auth.dart';
+import 'place.dart';
 import 'track.dart';
 
 class Tracks with ChangeNotifier {
@@ -55,7 +56,7 @@ class Tracks with ChangeNotifier {
 
   void parseJson(List<Map<String, dynamic>> tracksJson) {
     _tracks = tracksJson.map((jsonMap) => Track.fromJson(jsonMap)).toList();
-    _tracks = _tracks.reversed.toList();
+    _tracks = _tracks.toList();
   }
 
   void markAsVisited(int placeId) {
@@ -65,4 +66,9 @@ class Tracks with ChangeNotifier {
     notifyListeners();
     refreshTracks();
   }
+
+  Track properTrack(int id) =>
+      tracks.firstWhere((element) => element.places.contains(id));
+
+  Place properPoint(int id) => properTrack(id).properPoint;
 }
