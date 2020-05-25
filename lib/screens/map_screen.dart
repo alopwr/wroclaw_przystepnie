@@ -3,6 +3,8 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
+import 'package:wroclaw_przystepnie/widgets/next_place_chip.dart';
+import 'package:wroclaw_przystepnie/widgets/previous_place_chip.dart';
 
 import '../providers/places.dart';
 import '../widgets/current_track_chip.dart';
@@ -106,6 +108,12 @@ class MapScreenState extends State<MapScreen> {
               MapWidget(),
               Positioned(
                   top: _trackBadgeTop, left: 10, child: CurrentTrackChip()),
+              Positioned(
+                  top: _trackBadgeTop + 50, right: 10, child: NextPlaceChip()),
+              Positioned(
+                  top: _trackBadgeTop + 50,
+                  left: 10,
+                  child: PreviousPlaceChip()),
             ],
           ),
           panelBuilder: (sc) => SliderPanel(sc),

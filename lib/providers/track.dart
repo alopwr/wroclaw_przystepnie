@@ -35,4 +35,22 @@ class Track {
         .where((element) => places.contains(element.id))
         .lastWhere((element) => !element.wrongOrder);
   }
+
+  Place get nextPoint {
+    final placesProvider = locator<Places>();
+    var current = placesProvider.activePlace;
+    if (current == null) return null;
+    if (places.last == current.id) return null;
+    var nextId = places[places.indexOf(current.id) + 1];
+    return placesProvider.places.firstWhere((element) => element.id == nextId);
+  }
+  
+  Place get previousPoint {
+    final placesProvider = locator<Places>();
+    var current = placesProvider.activePlace;
+    if (current == null) return null;
+    if (places.first == current.id) return null;
+    var previousId = places[places.indexOf(current.id) - 1];
+    return placesProvider.places.firstWhere((element) => element.id == previousId);
+  }
 }
