@@ -167,6 +167,14 @@ class MapScreenState extends State<MapScreen> {
         // RepaintBoundary(
         //   key: capturingKey,
         //   child: Icon(
+        //     Icons.place,
+        //     size: 42,
+        //     color: Theme.of(context).primaryColor,
+        //   ),
+        // ),
+        // RepaintBoundary(
+        //   key: capturingKey,
+        //   child: Icon(
         //     MyCustomIcons.map_marker_check,
         //     color: Colors.green,
         //     size: 42,

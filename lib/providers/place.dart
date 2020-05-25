@@ -42,7 +42,9 @@ class Place with ChangeNotifier {
       onTap: () {
         showDetails(id);
       },
-      icon: isVisited ? WidgetToImageConverter.tickedMarkerIcon : null,
+      icon: isVisited
+          ? WidgetToImageConverter.tickedMarkerIcon
+          : WidgetToImageConverter.orangeMarkerIcon,
     );
     this.wrongOrder = jsonMap['wrong_order'];
   }
@@ -69,7 +71,9 @@ class Place with ChangeNotifier {
       onTap: () {
         showDetails(id);
       },
-      icon: isVisited ? WidgetToImageConverter.tickedMarkerIcon : null,
+      icon: isVisited
+          ? WidgetToImageConverter.tickedMarkerIcon
+          : WidgetToImageConverter.orangeMarkerIcon,
     );
     notifyListeners();
   }

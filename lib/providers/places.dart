@@ -13,6 +13,7 @@ import '../helpers/http_helper.dart';
 import '../helpers/locator.dart';
 import '../widgets/global_dialogs.dart';
 import '../widgets/wrong_order_popup.dart';
+import '../widgets/map_style.dart';
 import 'auth.dart';
 import 'place.dart';
 import 'track.dart';
@@ -164,6 +165,7 @@ class Places with ChangeNotifier {
 
   void onMapCreated(GoogleMapController controller) {
     googleMapsController = controller;
+    googleMapsController.setMapStyle(mapStyle);
     Future.delayed(Duration(milliseconds: 100), focusOnVisible);
   }
 
