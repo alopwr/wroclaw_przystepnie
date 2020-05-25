@@ -3,14 +3,15 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
-import 'package:wroclaw_przystepnie/widgets/next_place_chip.dart';
-import 'package:wroclaw_przystepnie/widgets/previous_place_chip.dart';
 
 import '../providers/places.dart';
 import '../widgets/current_track_chip.dart';
+import '../widgets/google_maps_toolbar.dart';
 import '../widgets/location_warning_badge.dart';
 import '../widgets/map.dart';
+import '../widgets/next_place_chip.dart';
 import '../widgets/offline_warning_badge.dart';
+import '../widgets/previous_place_chip.dart';
 import '../widgets/refreshing_indicator_badge.dart';
 import '../widgets/slider_panel.dart';
 import '../widgets/status_blur.dart';
@@ -142,6 +143,11 @@ class MapScreenState extends State<MapScreen> {
           right: 24.5,
           bottom: _fabHeight,
           child: UserLocationButton(),
+        ),
+        Positioned(
+          left: 24.5,
+          bottom: _fabHeight,
+          child: GoogleMapsToolbar(),
         ),
         Positioned(
           top: 30,

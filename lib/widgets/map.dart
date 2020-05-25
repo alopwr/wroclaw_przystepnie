@@ -26,7 +26,7 @@ class MapWidget extends StatelessWidget {
         },
         buildingsEnabled: true,
         compassEnabled: false,
-        mapToolbarEnabled: true,
+        mapToolbarEnabled: false,
         zoomControlsEnabled: false,
         myLocationEnabled: user.enabledAndAllowedLocation ? true : false,
         myLocationButtonEnabled: false,
