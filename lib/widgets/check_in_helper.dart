@@ -59,6 +59,7 @@ Future<void> markAsVisited(
       await Provider.of<UserLocationManager>(context, listen: false)
           .placeDistanceValidation(location);
 
+  //temporary workaround
   // if (!correctDistance) {
   //   await farAwayWarning(context);
   //   return;

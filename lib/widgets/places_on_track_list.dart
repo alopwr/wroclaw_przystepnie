@@ -14,6 +14,7 @@ class PlacesOnTrackList extends StatelessWidget {
             (place) => Padding(
               padding: const EdgeInsets.symmetric(horizontal: 10),
               child: Card(
+                color: place.wrongOrder ? Colors.grey.shade300 : null,
                 child: ListTile(
                   title: Text(
                     place.name,

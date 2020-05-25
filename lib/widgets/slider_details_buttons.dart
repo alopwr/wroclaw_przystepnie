@@ -17,11 +17,17 @@ class SliderDetailsButtons extends StatelessWidget {
       // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: <Widget>[
         CircleButton(
-          label: place.isVisited ? "Odwiedzone" : "Oznacz jako\nodwiedzone",
-          color: place.isVisited ? Colors.grey : Colors.green,
+          label: place.isVisited
+              ? "Odwiedzone"
+              : place.wrongOrder
+                  ? "Odwiedź najpierw\npoprzednie punkty"
+                  : "Oznacz jako\nodwiedzone",
+          color:
+              place.isVisited || place.wrongOrder ? Colors.grey : Colors.green,
           icon: Icons.check,
-          onPressed:
-              place.isVisited ? null : () => markAsVisited(context, place.id, place.location),
+          onPressed: place.isVisited || place.wrongOrder
+              ? null
+              : () => markAsVisited(context, place.id, place.location),
         ),
         CircleButton(
           label: "Wróć",
