@@ -24,7 +24,7 @@ class Places with ChangeNotifier {
 
   final panelController = PanelController();
   GoogleMapController googleMapsController;
-  ScrollController _scrollController;
+  ScrollController scrollController;
   bool refreshingBadge;
   bool offlineBadge = false;
 
@@ -201,9 +201,8 @@ class Places with ChangeNotifier {
     return true;
   }
 
-  set scrollController(ScrollController value) {
-    _scrollController = value;
+  void allowNext(int nextId) {
+    var placeId = places.indexWhere((element) => element.id == nextId);
+    _places[placeId] = places[placeId]..wrongOrder = false;
   }
-
-  ScrollController get scrollController => _scrollController;
 }

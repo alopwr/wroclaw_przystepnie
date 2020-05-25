@@ -63,6 +63,7 @@ class Tracks with ChangeNotifier {
     var track =
         tracks.firstWhere((element) => element.places.contains(placeId));
     track.increaseVisited();
+    track.allowNext(placeId);
     notifyListeners();
     refreshTracks();
   }

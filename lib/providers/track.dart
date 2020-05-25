@@ -21,6 +21,12 @@ class Track {
   void increaseVisited() =>
       progress = ((progress * places.length) + 1) / places.length;
 
+  void allowNext(int id) {
+    if (!enforceOrder) return;
+    var nextId = places.indexOf(id) + 1;
+    locator<Places>().allowNext(places[nextId]);
+  }
+
   String get progressLabel => "${(progress * 100).toInt()}%";
 
   Place get properPoint {
