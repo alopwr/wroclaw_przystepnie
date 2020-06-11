@@ -1,8 +1,12 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location_permissions/location_permissions.dart';
 
+import '../helpers/locator.dart';
+import '../widgets/global_dialogs.dart';
+import '../widgets/location_permission_info_popup.dart';
 import 'places.dart';
 
 class UserLocationManager with ChangeNotifier {
@@ -22,9 +26,14 @@ class UserLocationManager with ChangeNotifier {
   Future<void> permissionHandling() async {
     permission = await LocationPermissions().checkPermissionStatus(
         level: LocationPermissionLevel.locationWhenInUse);
-    if (permission != PermissionStatus.granted)
+    if (permission != PermissionStatus.granted) {
+      await showDialog(
+          context:
+              locator<GlobalKey<GlobalContextProviderState>>().currentContext,
+          child: LocationPermissionInfoPopup());
       permission = await LocationPermissions().requestPermissions(
           permissionLevel: LocationPermissionLevel.locationWhenInUse);
+    }
     serviceStatus = await LocationPermissions()
         .checkServiceStatus(level: LocationPermissionLevel.locationWhenInUse);
     notifyListeners();
