@@ -2,8 +2,8 @@ import '../helpers/locator.dart';
 import 'place.dart';
 import 'places.dart';
 
-class Track {
-  Track.fromJson(Map<String, dynamic> jsonMap) {
+class Path {
+  Path.fromJson(Map<String, dynamic> jsonMap) {
     this.id = jsonMap['id'];
     this.name = jsonMap['name'];
     this.description = jsonMap['description'];

@@ -9,7 +9,7 @@ import 'package:sentry/sentry.dart';
 import 'helpers/locator.dart';
 import 'providers/auth.dart';
 import 'providers/places.dart';
-import 'providers/tracks.dart';
+import 'providers/paths.dart';
 import 'providers/user_location.dart';
 import 'screens/login_screen.dart';
 import 'screens/map_screen.dart';
@@ -79,9 +79,9 @@ class MyApp extends StatelessWidget {
           create: (_) => UserLocationManager(),
           update: (_, places, __) => UserLocationManager(places: places),
         ),
-        ChangeNotifierProxyProvider<Auth, Tracks>(
-          create: (_) => locator<Tracks>(),
-          update: (_, auth, __) => newTracks(auth: auth),
+        ChangeNotifierProxyProvider<Auth, Paths>(
+          create: (_) => locator<Paths>(),
+          update: (_, auth, __) => newPaths(auth: auth),
         ),
       ],
       child: Consumer<Auth>(

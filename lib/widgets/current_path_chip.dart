@@ -3,18 +3,18 @@ import 'package:provider/provider.dart';
 
 import '../providers/places.dart';
 
-class CurrentTrackChip extends StatelessWidget {
+class CurrentPathChip extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var places = Provider.of<Places>(context);
-    var currentTrack = places.currentTrack;
+    var currentPath = places.currentPath;
 
-    if (currentTrack == null)
+    if (currentPath == null)
       return Container();
     else
       return Chip(
         backgroundColor: Colors.white,
-        label: Text("Trasa: ${currentTrack.name}"),
+        label: Text("Trasa: ${currentPath.name}"),
         deleteIcon: const Icon(Icons.close, size: 18),
         onDeleted: () {
           places.clearFilter();

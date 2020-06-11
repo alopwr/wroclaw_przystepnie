@@ -4,7 +4,7 @@ import 'package:provider/provider.dart';
 import '../providers/places.dart';
 import 'custom_icons.dart';
 
-class PlacesOnTrackList extends StatelessWidget {
+class PlacesOnPathList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var places = Provider.of<Places>(context);

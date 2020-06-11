@@ -7,10 +7,10 @@ import 'slider_details_body.dart';
 import 'slider_details_buttons.dart';
 import 'slider_menu_body.dart';
 import 'slider_menu_buttons.dart';
-import 'slider_track_body.dart';
-import 'slider_track_button.dart';
+import 'slider_path_body.dart';
+import 'slider_path_button.dart';
 
-enum MenuType { menu, track, placeDetail }
+enum MenuType { menu, path, placeDetail }
 
 class SliderPanel extends StatelessWidget {
   SliderPanel(this.scrollController);
@@ -21,8 +21,8 @@ class SliderPanel extends StatelessWidget {
   String title(Places places) {
     if (type == MenuType.menu)
       return "Zwiedzaj Wrocław!";
-    else if (type == MenuType.track)
-      return places.currentTrack.name;
+    else if (type == MenuType.path)
+      return places.currentPath.name;
     else
       return places.activePlace.name;
   }
@@ -33,8 +33,8 @@ class SliderPanel extends StatelessWidget {
     places.scrollController = scrollController;
     if (places.activePlace != null)
       type = MenuType.placeDetail;
-    else if (places.currentTrack != null)
-      type = MenuType.track;
+    else if (places.currentPath != null)
+      type = MenuType.path;
     else
       type = MenuType.menu;
 
@@ -62,8 +62,8 @@ class SliderPanel extends StatelessWidget {
           Container(
             child: type == MenuType.menu
                 ? const SliderMenuButtons()
-                : type == MenuType.track
-                    ? const SliderTrackButtons()
+                : type == MenuType.path
+                    ? const SliderPathButtons()
                     : const SliderDetailsButtons(),
           ),
           const SizedBox(height: 36),
@@ -77,8 +77,8 @@ class SliderPanel extends StatelessWidget {
                   : null,
               child: type == MenuType.menu
                   ? const SliderMenuBody()
-                  : type == MenuType.track
-                      ? SliderTrackBody(places.currentTrack.description)
+                  : type == MenuType.path
+                      ? SliderPathBody(places.currentPath.description)
                       : const SliderDetailsBody(),
             ),
           ),

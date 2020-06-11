@@ -16,8 +16,8 @@ import '../widgets/wrong_order_popup.dart';
 import '../widgets/map_style.dart';
 import 'auth.dart';
 import 'place.dart';
-import 'track.dart';
-import 'tracks.dart';
+import 'path.dart';
+import 'paths.dart';
 
 class Places with ChangeNotifier {
   Places({this.auth});
@@ -30,7 +30,7 @@ class Places with ChangeNotifier {
   bool offlineBadge = false;
 
   List<Place> _places = [];
-  Track currentTrack;
+  Path currentPath;
 
   List<Place> get places => [..._places];
 
@@ -46,7 +46,7 @@ class Places with ChangeNotifier {
           .toList();
   }
 
-  List<int> get _visiblePlacesIds => currentTrack?.places;
+  List<int> get _visiblePlacesIds => currentPath?.places;
 
   Future<void> fetchPlaces() async {
     var placesJson = await HttpHelper.fetchPlaces(auth.headers);
@@ -84,8 +84,8 @@ class Places with ChangeNotifier {
     _places = _places.toList();
   }
 
-  void setVisiblePlacesFilter(Track track) {
-    currentTrack = track;
+  void setVisiblePlacesFilter(Path path) {
+    currentPath = path;
     panelController.close();
     scrollController.jumpTo(0);
     notifyListeners();
@@ -93,7 +93,7 @@ class Places with ChangeNotifier {
   }
 
   void clearFilter({bool close = false, bool zoomOut = false}) {
-    currentTrack = null;
+    currentPath = null;
     notifyListeners();
     if (close) {
       panelController.close();
@@ -128,7 +128,7 @@ class Places with ChangeNotifier {
           child: WrongOrderPopup());
       if (result == null) return;
       if (result == DialogOptions.showProperPoint) {
-        showDetails(locator<Tracks>().properPoint(id).id);
+        showDetails(locator<Paths>().properPoint(id).id);
         return;
       }
     }

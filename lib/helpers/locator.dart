@@ -3,20 +3,20 @@ import 'package:get_it/get_it.dart';
 
 import '../providers/auth.dart';
 import '../providers/places.dart';
-import '../providers/tracks.dart';
+import '../providers/paths.dart';
 import '../widgets/global_dialogs.dart';
 
 GetIt locator = GetIt.instance..allowReassignment = true;
 
 void setupLocator() {
   locator.registerLazySingleton(() => GlobalKey<GlobalContextProviderState>());
-  locator.registerLazySingleton(() => Tracks());
+  locator.registerLazySingleton(() => Paths());
   locator.registerLazySingleton(() => Places());
 }
 
-Tracks newTracks({Auth auth}) {
-  locator.registerSingleton(Tracks(auth: auth));
-  return locator<Tracks>();
+Paths newPaths({Auth auth}) {
+  locator.registerSingleton(Paths(auth: auth));
+  return locator<Paths>();
 }
 
 Places newPlaces({Auth auth}) {

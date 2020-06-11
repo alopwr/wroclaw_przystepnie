@@ -1,42 +1,42 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../providers/tracks.dart';
+import '../providers/paths.dart';
 import '../providers/places.dart';
 import 'progress_bar.dart';
 
-class TracksPicker extends StatelessWidget {
+class PathsPicker extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    var tracks = Provider.of<Tracks>(context).tracks;
+    var paths = Provider.of<Paths>(context).paths;
     var places = Provider.of<Places>(context);
-    var currentTrack = places.currentTrack;
+    var currentPath = places.currentPath;
 
     return Column(
       mainAxisSize: MainAxisSize.min,
-      children: tracks
+      children: paths
           .map(
-            (track) => Padding(
+            (path) => Padding(
               padding: const EdgeInsets.symmetric(horizontal: 10),
               child: Card(
-                color: currentTrack == track ? Colors.blueGrey.shade50 : null,
+                color: currentPath == path ? Colors.blueGrey.shade50 : null,
                 child: ListTile(
                   title: Text(
-                    track.name,
+                    path.name,
                     style: Theme.of(context)
                         .textTheme
                         .subtitle1
                         .copyWith(fontWeight: FontWeight.bold),
                   ),
-                  trailing: currentTrack == track
+                  trailing: currentPath == path
                       ? Icon(Icons.close,
                           size: 28, color: Theme.of(context).errorColor)
                       : const Icon(Icons.near_me, size: 28),
-                  subtitle: ProgressBar(track),
-                  onTap: currentTrack == track
+                  subtitle: ProgressBar(path),
+                  onTap: currentPath == path
                       ? places.clearFilter
                       : () => Provider.of<Places>(context, listen: false)
-                          .setVisiblePlacesFilter(track),
+                          .setVisiblePlacesFilter(path),
                 ),
               ),
             ),

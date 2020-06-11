@@ -5,7 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 
 import '../providers/places.dart';
-import '../widgets/current_track_chip.dart';
+import '../widgets/current_path_chip.dart';
 import '../widgets/google_maps_toolbar.dart';
 import '../widgets/location_warning_badge.dart';
 import '../widgets/map.dart';
@@ -70,8 +70,8 @@ class MapScreenState extends State<MapScreen> {
   double _panelHeightOpen;
   double _panelHeightClosed = 95.0;
 
-  double _trackBadgeTop = 30.0;
-  final _collapsedPanelSituationTrackBadgeTop = 30;
+  double _pathBadgeTop = 30.0;
+  final _collapsedPanelSituationPathBadgeTop = 30;
 
   double corner = 18;
   @override
@@ -108,11 +108,11 @@ class MapScreenState extends State<MapScreen> {
             children: <Widget>[
               MapWidget(),
               Positioned(
-                  top: _trackBadgeTop, left: 10, child: CurrentTrackChip()),
+                  top: _pathBadgeTop, left: 10, child: CurrentPathChip()),
               Positioned(
-                  top: _trackBadgeTop + 50, right: 10, child: NextPlaceChip()),
+                  top: _pathBadgeTop + 50, right: 10, child: NextPlaceChip()),
               Positioned(
-                  top: _trackBadgeTop + 50,
+                  top: _pathBadgeTop + 50,
                   left: 10,
                   child: PreviousPlaceChip()),
             ],
@@ -125,9 +125,9 @@ class MapScreenState extends State<MapScreen> {
             setState(() {
               _fabHeight = pos * (_panelHeightOpen - _panelHeightClosed) +
                   _collapsedPanelSituationFabHeight;
-              _trackBadgeTop =
+              _pathBadgeTop =
                   .5 * pos * (_panelHeightOpen - _panelHeightClosed) +
-                      _collapsedPanelSituationTrackBadgeTop;
+                      _collapsedPanelSituationPathBadgeTop;
               if (pos < 1)
                 corner = 18;
               else

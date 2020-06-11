@@ -1,11 +1,11 @@
 import 'package:expand_widget/expand_widget.dart';
 import 'package:flutter/material.dart';
 
-import 'places_on_track_list.dart';
+import 'places_on_path_list.dart';
 import 'sticky_section.dart';
 
-class SliderTrackBody extends StatelessWidget {
-  SliderTrackBody(this.description);
+class SliderPathBody extends StatelessWidget {
+  SliderPathBody(this.description);
   final String description;
 
   @override
@@ -27,7 +27,7 @@ class SliderTrackBody extends StatelessWidget {
           title: "Punkty:",
           child: Align(
             alignment: Alignment.topLeft,
-            child: PlacesOnTrackList(),
+            child: PlacesOnPathList(),
           ),
         ),
       ],

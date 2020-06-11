@@ -5,11 +5,11 @@ import '../providers/places.dart';
 import 'progress_bar.dart';
 import 'circle_button.dart';
 
-class SliderTrackButtons extends StatelessWidget {
-  const SliderTrackButtons();
+class SliderPathButtons extends StatelessWidget {
+  const SliderPathButtons();
   @override
   Widget build(BuildContext context) {
-    var track = Provider.of<Places>(context).currentTrack;
+    var path = Provider.of<Places>(context).currentPath;
     return Padding(
       padding: const EdgeInsets.only(left: 24, right: 35),
       child: Row(
@@ -26,7 +26,7 @@ class SliderTrackButtons extends StatelessWidget {
                           .copyWith(fontWeight: FontWeight.bold))),
               Padding(
                 padding: const EdgeInsets.only(left: 11, top: 8),
-                child: ProgressBar(track),
+                child: ProgressBar(path),
               ),
             ],
           )),

@@ -7,12 +7,12 @@ class PreviousPlaceChip extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var places = Provider.of<Places>(context);
-    var currentTrack = places.currentTrack;
+    var currentPath = places.currentPath;
 
-    if (currentTrack == null || !currentTrack.enforceOrder)
+    if (currentPath == null || !currentPath.enforceOrder)
       return Container();
     else {
-      var previousPoint = currentTrack.previousPoint;
+      var previousPoint = currentPath.previousPoint;
       if (previousPoint == null)
         return Container();
       else

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../providers/tracks.dart';
+import '../providers/paths.dart';
 import 'sticky_section.dart';
-import 'tracks_picker.dart';
+import 'paths_picker.dart';
 
 class SliderMenuBody extends StatelessWidget {
   const SliderMenuBody();
@@ -12,14 +12,14 @@ class SliderMenuBody extends StatelessWidget {
     return StickySection(
       title: "Trasy: ",
       child: FutureBuilder(
-        future: Provider.of<Tracks>(context, listen: false).getTracks(),
-        initialData: Provider.of<Tracks>(context, listen: false).tracks,
+        future: Provider.of<Paths>(context, listen: false).getPaths(),
+        initialData: Provider.of<Paths>(context, listen: false).paths,
         builder: (context, snapshot) {
           if (snapshot.data == null &&
               snapshot.connectionState == ConnectionState.waiting)
             return const Center(child: CircularProgressIndicator());
 
-          if (!snapshot.hasError) return TracksPicker();
+          if (!snapshot.hasError) return PathsPicker();
 
           return Center(
               child: Text(

@@ -8,7 +8,7 @@ import 'package:http/http.dart';
 import 'package:provider/provider.dart';
 
 import '../main.dart';
-import '../providers/tracks.dart';
+import '../providers/paths.dart';
 
 const API_MASTER_URL = "https://wroclaw-przystepnie.herokuapp.com/v0";
 
@@ -25,7 +25,7 @@ class HttpHelper {
     return List<Map<String, dynamic>>.from(json.decode(text));
   }
 
-  static Future<List<Map<String, dynamic>>> fetchTracks(
+  static Future<List<Map<String, dynamic>>> fetchPaths(
       Map<String, String> headers) async {
     var url = "$API_MASTER_URL/paths/";
     var response = await http.get(
@@ -33,7 +33,7 @@ class HttpHelper {
       headers: headers,
     );
     var text = utf8.decode(response.bodyBytes);
-    Hive.box('cacheJson').put("tracksJson", text);
+    Hive.box('cacheJson').put("pathsJson", text);
     return List<Map<String, dynamic>>.from(json.decode(text));
   }
 
@@ -60,7 +60,7 @@ class HttpHelper {
     var decoded = json.decode(text);
     var success = decoded['place'] == id;
     if (success && context != null)
-      Provider.of<Tracks>(context, listen: false).markAsVisited(id);
+      Provider.of<Paths>(context, listen: false).markAsVisited(id);
 
     return success;
   }
