@@ -24,7 +24,7 @@ class SliderDetailsButtons extends StatelessWidget {
                   : "Oznacz jako\nodwiedzone",
           color:
               place.isVisited || place.wrongOrder ? Colors.grey : Colors.green,
-          icon: Icons.check,
+          icon: place.wrongOrder ? Icons.close : Icons.check,
           onPressed: place.isVisited || place.wrongOrder
               ? null
               : () => markAsVisited(context, place.id, place.location),
