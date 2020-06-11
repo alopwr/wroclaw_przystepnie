@@ -39,45 +39,51 @@ class SliderPanel extends StatelessWidget {
       type = MenuType.menu;
 
     return MediaQuery.removePadding(
-        context: context,
-        removeTop: true,
-        child: Column(
-          children: <Widget>[
-            const SizedBox(height: 12),
-            const Dash(),
-            const SizedBox(height: 18),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Text(
-                  title(places),
-                  style: const TextStyle(
-                    fontWeight: FontWeight.normal,
-                    fontSize: 24.0,
-                  ),
+      context: context,
+      removeTop: true,
+      child: Column(
+        children: <Widget>[
+          const SizedBox(height: 12),
+          const Dash(),
+          const SizedBox(height: 18),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Text(
+                title(places),
+                style: const TextStyle(
+                  fontWeight: FontWeight.normal,
+                  fontSize: 24.0,
                 ),
-              ],
-            ),
-            const SizedBox(height: 36),
-            Container(
-              child: type == MenuType.menu
-                  ? const SliderMenuButtons()
-                  : type == MenuType.track
-                      ? const SliderTrackButtons()
-                      : const SliderDetailsButtons(),
-            ),
-            const SizedBox(height: 36),
-            Expanded(
-              child: SingleChildScrollView(
-                controller: scrollController,
-                child: type == MenuType.menu
-                    ? const SliderMenuBody()
-                    : type == MenuType.track
-                        ? SliderTrackBody(places.currentTrack.description)
-                        : const SliderDetailsBody(),
               ),
+            ],
+          ),
+          const SizedBox(height: 36),
+          Container(
+            child: type == MenuType.menu
+                ? const SliderMenuButtons()
+                : type == MenuType.track
+                    ? const SliderTrackButtons()
+                    : const SliderDetailsButtons(),
+          ),
+          const SizedBox(height: 36),
+          Expanded(
+            child: SingleChildScrollView(
+              controller: scrollController,
+              physics: !Provider.of<Places>(context, listen: false)
+                      .panelController
+                      .isPanelOpen
+                  ? const NeverScrollableScrollPhysics()
+                  : null,
+              child: type == MenuType.menu
+                  ? const SliderMenuBody()
+                  : type == MenuType.track
+                      ? SliderTrackBody(places.currentTrack.description)
+                      : const SliderDetailsBody(),
             ),
-          ],
-        ));
+          ),
+        ],
+      ),
+    );
   }
 }
