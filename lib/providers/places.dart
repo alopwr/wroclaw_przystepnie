@@ -171,8 +171,11 @@ class Places with ChangeNotifier {
 
   List<int> get placesIds => places.map((e) => e.id).toList();
 
-  void detailRandom() =>
-      showDetails(placesIds[Random().nextInt(placesIds.length)]);
+  List<int> get easilyAccesedPlacesIds =>
+      places.where((e) => !e.wrongOrder).map((e) => e.id).toList();
+
+  void detailRandom() => showDetails(
+      easilyAccesedPlacesIds[Random().nextInt(easilyAccesedPlacesIds.length)]);
 
   Map<String, LatLng> get visibleMarkersBounds {
     List<double> lats = [];
