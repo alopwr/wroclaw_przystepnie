@@ -17,7 +17,7 @@ Future<void> farAwayWarning(BuildContext context) async {
   showDialog(
     context: context,
     barrierDismissible: false,
-    child: const Icon(
+    builder: (context) => const Icon(
       MyCustomIcons.map_marker_distance,
       color: Colors.red,
       size: 70,
@@ -32,19 +32,19 @@ Future<void> farAwayWarning(BuildContext context) async {
   Navigator.of(context).popUntil((route) => route.isFirst);
   showDialog(
       context: context,
-      child: AlertDialog(
-        title: const Text("Jesteś za daleko"),
-        content: const Text(
-            "Aby oznaczyć punkt jako odwiedziony, musisz znajdować się w promieniu 50 metrów od punktu"),
-        actions: <Widget>[
-          FlatButton(
-            child: const Text("OK"),
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
-          )
-        ],
-      ));
+      builder: (context) => AlertDialog(
+            title: const Text("Jesteś za daleko"),
+            content: const Text(
+                "Aby oznaczyć punkt jako odwiedziony, musisz znajdować się w promieniu 50 metrów od punktu"),
+            actions: <Widget>[
+              FlatButton(
+                child: const Text("OK"),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              )
+            ],
+          ));
 }
 
 Future<void> markAsVisited(
@@ -52,7 +52,7 @@ Future<void> markAsVisited(
   showDialog(
     context: context,
     barrierDismissible: false,
-    child: const Center(child: CircularProgressIndicator()),
+    builder: (context) => const Center(child: CircularProgressIndicator()),
   );
 
   var correctDistance =
@@ -72,19 +72,19 @@ Future<void> markAsVisited(
     Navigator.of(context).popUntil((route) => route.isFirst);
     showDialog(
         context: context,
-        child: AlertDialog(
-          title: const Text("Niepowodzenie"),
-          content: const Text(
-              "Niestety nie udało się oznanaczyć miejsc jako odwiedzione"),
-          actions: <Widget>[
-            FlatButton(
-              child: const Text("OK"),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            )
-          ],
-        ));
+        builder: (context) => AlertDialog(
+              title: const Text("Niepowodzenie"),
+              content: const Text(
+                  "Niestety nie udało się oznanaczyć miejsc jako odwiedzione"),
+              actions: <Widget>[
+                FlatButton(
+                  child: const Text("OK"),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                )
+              ],
+            ));
     return;
   }
   var canVibrate = false;
@@ -94,7 +94,7 @@ Future<void> markAsVisited(
   showDialog(
     context: context,
     barrierDismissible: false,
-    child: const Icon(
+    builder: (context) => const Icon(
       MyCustomIcons.map_marker_check,
       color: Colors.green,
       size: 70,

@@ -125,7 +125,7 @@ class Places with ChangeNotifier {
       var result = await showDialog(
           context:
               locator<GlobalKey<GlobalContextProviderState>>().currentContext,
-          child: WrongOrderPopup());
+          builder: (context) => WrongOrderPopup());
       if (result == null) return;
       if (result == DialogOptions.showProperPoint) {
         showDetails(locator<Paths>().properPoint(id).id);

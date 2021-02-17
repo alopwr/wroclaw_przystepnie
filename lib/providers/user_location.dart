@@ -30,7 +30,7 @@ class UserLocationManager with ChangeNotifier {
       await showDialog(
           context:
               locator<GlobalKey<GlobalContextProviderState>>().currentContext,
-          child: LocationPermissionInfoPopup());
+          builder: (context) => LocationPermissionInfoPopup());
       permission = await LocationPermissions().requestPermissions(
           permissionLevel: LocationPermissionLevel.locationWhenInUse);
     }

@@ -10,20 +10,20 @@ class BackButtonManager extends StatelessWidget {
   Future<bool> exitDialog(BuildContext context) async {
     var exit = await showDialog(
         context: context,
-        child: AlertDialog(
-          title: const Text("Jesteś pewien?"),
-          content: const Text("Czy na pewno chcesz opuścić tą aplikację?"),
-          actions: <Widget>[
-            FlatButton(
-              child: const Text("Nie"),
-              onPressed: () => Navigator.of(context).pop(false),
-            ),
-            FlatButton(
-              child: const Text("Tak"),
-              onPressed: () => Navigator.of(context).pop(true),
-            ),
-          ],
-        ));
+        builder: (context) => AlertDialog(
+              title: const Text("Jesteś pewien?"),
+              content: const Text("Czy na pewno chcesz opuścić tą aplikację?"),
+              actions: <Widget>[
+                FlatButton(
+                  child: const Text("Nie"),
+                  onPressed: () => Navigator.of(context).pop(false),
+                ),
+                FlatButton(
+                  child: const Text("Tak"),
+                  onPressed: () => Navigator.of(context).pop(true),
+                ),
+              ],
+            ));
     return exit;
   }
 

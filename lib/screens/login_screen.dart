@@ -60,25 +60,25 @@ class _LoginScreenState extends State<LoginScreen> {
     showDialog(
         context: context,
         barrierDismissible: false,
-        child: const Center(child: CircularProgressIndicator()));
+        builder: (context) => const Center(child: CircularProgressIndicator()));
     var isValid = await Provider.of<Auth>(context, listen: false)
         .validatePhoneNumber(_smsCode);
     Navigator.of(context).popUntil((route) => route.isFirst);
     if (!isValid) {
       showDialog(
           context: context,
-          child: AlertDialog(
-            title: const Text("Niepoprawny kod"),
-            content: const Text("Wprowadzony kod sms jest niepoprawny."),
-            actions: <Widget>[
-              FlatButton(
-                child: const Text("OK"),
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-              )
-            ],
-          ));
+          builder: (context) => AlertDialog(
+                title: const Text("Niepoprawny kod"),
+                content: const Text("Wprowadzony kod sms jest niepoprawny."),
+                actions: <Widget>[
+                  FlatButton(
+                    child: const Text("OK"),
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                  )
+                ],
+              ));
       setState(() {
         _smsCode = "";
       });
@@ -112,18 +112,18 @@ class _LoginScreenState extends State<LoginScreen> {
       showDialog(
           context: context,
           barrierDismissible: false,
-          child: AlertDialog(
-            title: Text(ErrorCodeHelper.title(errorCode)),
-            content: Text(ErrorCodeHelper.content(errorCode)),
-            actions: <Widget>[
-              FlatButton(
-                  child: const Text("OK"),
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                    returnToPhoneInput();
-                  })
-            ],
-          ));
+          builder: (context) => AlertDialog(
+                title: Text(ErrorCodeHelper.title(errorCode)),
+                content: Text(ErrorCodeHelper.content(errorCode)),
+                actions: <Widget>[
+                  FlatButton(
+                      child: const Text("OK"),
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                        returnToPhoneInput();
+                      })
+                ],
+              ));
       return;
     }
 

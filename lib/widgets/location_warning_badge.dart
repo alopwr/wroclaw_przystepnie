@@ -15,19 +15,19 @@ class LocationWarningBadge extends StatelessWidget {
         mini: true,
         onPressed: () => showDialog(
             context: context,
-            child: AlertDialog(
-              title: const Text("Brak danych lokalizacyjnych"),
-              content: const Text(
-                  "Niestety aplikacja nie ma dostępu do twoich danych lokalizacyjnych. Sprawdź, czy usługi lokalizacyjne są włączone, a wszystkie pozwolenia aplikacji przydzielone."),
-              actions: <Widget>[
-                FlatButton(
-                  child: const Text("Ok"),
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                )
-              ],
-            )),
+            builder: (context) => AlertDialog(
+                  title: const Text("Brak danych lokalizacyjnych"),
+                  content: const Text(
+                      "Niestety aplikacja nie ma dostępu do twoich danych lokalizacyjnych. Sprawdź, czy usługi lokalizacyjne są włączone, a wszystkie pozwolenia aplikacji przydzielone."),
+                  actions: <Widget>[
+                    FlatButton(
+                      child: const Text("Ok"),
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                    )
+                  ],
+                )),
       );
     else
       return Container();

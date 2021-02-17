@@ -18,19 +18,19 @@ class OfflineWarningBadge extends StatelessWidget {
         mini: true,
         onPressed: () => showDialog(
             context: context,
-            child: AlertDialog(
-              title: const Text("Błąd odświeżania"),
-              content: const Text(
-                  "Niestety nie udało się odświeżyć danych z serwera. Wyświetlane są dane historyczne."),
-              actions: <Widget>[
-                FlatButton(
-                  child: const Text("Ok"),
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                )
-              ],
-            )),
+            builder: (context) => AlertDialog(
+                  title: const Text("Błąd odświeżania"),
+                  content: const Text(
+                      "Niestety nie udało się odświeżyć danych z serwera. Wyświetlane są dane historyczne."),
+                  actions: <Widget>[
+                    FlatButton(
+                      child: const Text("Ok"),
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                    )
+                  ],
+                )),
       );
     else
       return Container();

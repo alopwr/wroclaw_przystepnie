@@ -66,7 +66,7 @@ class PhoneNumberCard extends StatelessWidget {
                           } else {
                             showDialog(
                               context: context,
-                              child: AlertDialog(
+                              builder: (context) => AlertDialog(
                                 content: Text("Nie udało się otworzyć $url."),
                                 actions: <Widget>[
                                   FlatButton(

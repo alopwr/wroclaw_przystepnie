@@ -86,6 +86,7 @@ class MyApp extends StatelessWidget {
       ],
       child: Consumer<Auth>(
         builder: (context, auth, _) => MaterialApp(
+          // debugShowCheckedModeBanner: false,
           title: 'Wrocław Przystępnie',
           theme:
               ThemeData(primarySwatch: Colors.orange, fontFamily: "Helvetica"),

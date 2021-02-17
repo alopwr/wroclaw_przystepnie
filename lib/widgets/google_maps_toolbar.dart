@@ -10,7 +10,7 @@ import 'global_dialogs.dart';
 
 class GoogleMapsToolbar extends StatelessWidget {
   Future showDirections(Place activePlace) async {
-      final url =
+    final url =
         'https://www.google.com/maps/dir/?api=1&destination=${activePlace.location.latitude},${activePlace.location.longitude}';
     if (await canLaunch(url))
       await launch(url);
@@ -32,7 +32,7 @@ class GoogleMapsToolbar extends StatelessWidget {
         locator<GlobalKey<GlobalContextProviderState>>().currentContext;
     showDialog(
       context: context,
-      child: AlertDialog(
+      builder: (context) => AlertDialog(
         title: const Text("Niepowodzenie"),
         content: const Text("Nie udało się otworzyć Google Maps"),
         actions: <Widget>[
