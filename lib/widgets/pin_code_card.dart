@@ -29,7 +29,8 @@ class PinCodeCard extends StatelessWidget {
                   Text("Kod SMS", style: Theme.of(context).textTheme.subtitle),
                   PinFieldAutoFill(
                     decoration: UnderlineDecoration(
-                        color: Theme.of(context).primaryColorDark,
+                        colorBuilder: PinListenColorBuilder(
+                            Theme.of(context).primaryColorDark, Colors.black),
                         textStyle:
                             TextStyle(fontSize: 20, color: Colors.black)),
                     currentCode: code,

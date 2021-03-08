@@ -41,9 +41,8 @@ class UserLocationManager with ChangeNotifier {
 
   Future<void> focusOnUser() async {
     if (!enabledAndAllowedLocation) return;
-    Position position = await Geolocator().getCurrentPosition(
-        desiredAccuracy: LocationAccuracy.high,
-        locationPermissionLevel: GeolocationPermission.locationWhenInUse);
+    Position position = await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.high);
     places.panelController.close();
     places.scrollController.jumpTo(0);
     await places?.googleMapsController?.animateCamera(
@@ -58,10 +57,9 @@ class UserLocationManager with ChangeNotifier {
 
   Future<bool> placeDistanceValidation(LatLng location) async {
     await permissionHandling();
-    Position position = await Geolocator().getCurrentPosition(
-        desiredAccuracy: LocationAccuracy.high,
-        locationPermissionLevel: GeolocationPermission.locationWhenInUse);
-    var distance = await Geolocator().distanceBetween(location.latitude,
+    Position position = await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.high);
+    var distance = Geolocator.distanceBetween(location.latitude,
         location.longitude, position.latitude, position.longitude);
 
     if (distance > 50) return false;

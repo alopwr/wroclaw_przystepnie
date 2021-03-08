@@ -61,7 +61,7 @@ class Places with ChangeNotifier {
       offlineBadge = true;
     }
     refreshingBadge = false;
-    notifyListeners();
+    Future.delayed(Duration.zero, notifyListeners);
   }
 
   Future<void> cachedPlaces() async {
@@ -69,11 +69,11 @@ class Places with ChangeNotifier {
     if (cache == null) {
       refreshingBadge = false;
       await fetchPlaces();
-      notifyListeners();
+      Future.delayed(Duration.zero, notifyListeners);
       return;
     }
     parsePlaces(List<Map<String, dynamic>>.from(json.decode(cache)));
-    notifyListeners();
+    Future.delayed(Duration.zero, notifyListeners);
     refreshPlaces();
   }
 

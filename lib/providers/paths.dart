@@ -36,11 +36,11 @@ class Paths with ChangeNotifier {
     if (cache == null) {
       refreshingBadge = false;
       await fetchPaths();
-      notifyListeners();
+      Future.delayed(Duration.zero, notifyListeners);
       return;
     }
     parseJson(List<Map<String, dynamic>>.from(json.decode(cache)));
-    notifyListeners();
+    Future.delayed(Duration.zero, notifyListeners);
     refreshPaths();
   }
 
@@ -51,7 +51,7 @@ class Paths with ChangeNotifier {
       offlineBadge = true;
     }
     refreshingBadge = false;
-    notifyListeners();
+    Future.delayed(Duration.zero, notifyListeners);
   }
 
   void parseJson(List<Map<String, dynamic>> pathsJson) {
@@ -60,8 +60,7 @@ class Paths with ChangeNotifier {
   }
 
   void markAsVisited(int placeId) {
-    var path =
-        paths.firstWhere((element) => element.places.contains(placeId));
+    var path = paths.firstWhere((element) => element.places.contains(placeId));
     path.increaseVisited();
     path.allowNext(placeId);
     notifyListeners();
