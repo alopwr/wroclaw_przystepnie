@@ -12,37 +12,39 @@ class SliderDetailsBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var place = Provider.of<Places>(context).activePlace;
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        if (place.description.length > 0)
-          StickySection(
-            title: "Opis:",
-            child: Align(
-              alignment: Alignment.topLeft,
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 24),
-                child: ExpandText(place.description),
+    return SafeArea(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          if (place.description.length > 0)
+            StickySection(
+              title: "Opis:",
+              child: Align(
+                alignment: Alignment.topLeft,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 24),
+                  child: ExpandText(place.description),
+                ),
               ),
             ),
-          ),
-        if (place.mediaGallerySet.length > 0)
-          StickySection(
-            title: "Multimedia:",
-            child: PhotoGallery(place),
-          ),
-        if (place.audioSet.length > 0)
-          StickySection(
-              title: "Audio:",
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 24),
-                child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: place.audioSet
-                        .map((audio) => AudioWidget(audio))
-                        .toList()),
-              )),
-      ],
+          if (place.mediaGallerySet.length > 0)
+            StickySection(
+              title: "Multimedia:",
+              child: PhotoGallery(place),
+            ),
+          if (place.audioSet.length > 0)
+            StickySection(
+                title: "Audio:",
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 24),
+                  child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: place.audioSet
+                          .map((audio) => AudioWidget(audio))
+                          .toList()),
+                )),
+        ],
+      ),
     );
   }
 }

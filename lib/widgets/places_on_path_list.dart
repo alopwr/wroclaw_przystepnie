@@ -5,6 +5,7 @@ import '../providers/places.dart';
 import 'custom_icons.dart';
 
 class PlacesOnPathList extends StatelessWidget {
+  const PlacesOnPathList();
   @override
   Widget build(BuildContext context) {
     var places = Provider.of<Places>(context);
@@ -13,8 +14,20 @@ class PlacesOnPathList extends StatelessWidget {
           .map(
             (place) => Padding(
               padding: const EdgeInsets.symmetric(horizontal: 10),
-              child: Card(
-                color: place.wrongOrder ? Colors.grey.shade300 : null,
+              child: Container(
+                margin: const EdgeInsets.all(5),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  color: place.wrongOrder ? Colors.grey.shade300 : Colors.white,
+                  boxShadow: [
+                    if (!place.wrongOrder)
+                      BoxShadow(
+                        color: const Color(0x29000000),
+                        offset: Offset(2, 2),
+                        blurRadius: 8,
+                      ),
+                  ],
+                ),
                 child: ListTile(
                   title: Text(
                     place.name,

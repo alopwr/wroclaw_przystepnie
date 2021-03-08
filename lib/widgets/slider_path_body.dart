@@ -10,27 +10,29 @@ class SliderPathBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: <Widget>[
-        StickySection(
-          title: "Opis:",
-          child: Align(
-            alignment: Alignment.topLeft,
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 24),
-              child: ExpandText(description),
+    return SafeArea(
+      child: Column(
+        children: <Widget>[
+          StickySection(
+            title: "Opis:",
+            child: Align(
+              alignment: Alignment.topLeft,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 24),
+                child: ExpandText(description),
+              ),
             ),
           ),
-        ),
-        const SizedBox(height: 18),
-        StickySection(
-          title: "Punkty:",
-          child: Align(
-            alignment: Alignment.topLeft,
-            child: PlacesOnPathList(),
+          const SizedBox(height: 18),
+          StickySection(
+            title: "Punkty:",
+            child: Align(
+              alignment: Alignment.topLeft,
+              child: PlacesOnPathList(),
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

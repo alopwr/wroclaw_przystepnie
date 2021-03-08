@@ -70,7 +70,7 @@ class MapScreenState extends State<MapScreen> {
   double _panelHeightOpen;
   double _panelHeightClosed = 95.0;
 
-  double _pathBadgeTop = 30.0;
+  double _pathBadgeTop = 0;
   final _collapsedPanelSituationPathBadgeTop = 30;
 
   double corner = 18;
@@ -108,11 +108,15 @@ class MapScreenState extends State<MapScreen> {
             children: <Widget>[
               MapWidget(),
               Positioned(
-                  top: _pathBadgeTop, left: 10, child: CurrentPathChip()),
+                  top: _pathBadgeTop + mediaQuery.padding.top,
+                  left: 10,
+                  child: CurrentPathChip()),
               Positioned(
-                  top: _pathBadgeTop + 50, right: 10, child: NextPlaceChip()),
+                  top: _pathBadgeTop + 50 + mediaQuery.padding.top,
+                  right: 10,
+                  child: NextPlaceChip()),
               Positioned(
-                  top: _pathBadgeTop + 50,
+                  top: _pathBadgeTop + 50 + mediaQuery.padding.top,
                   left: 10,
                   child: PreviousPlaceChip()),
             ],
@@ -150,17 +154,17 @@ class MapScreenState extends State<MapScreen> {
           child: GoogleMapsToolbar(),
         ),
         Positioned(
-          top: 30,
+          top: mediaQuery.padding.top,
           right: 5,
           child: LocationWarningBadge(),
         ),
         Positioned(
-          top: 30,
+          top: mediaQuery.padding.top,
           right: 5,
           child: RefreshIndicatorBadge(),
         ),
         Positioned(
-          top: 30,
+          top: mediaQuery.padding.top,
           right: 5,
           child: OfflineWarningBadge(),
         ),

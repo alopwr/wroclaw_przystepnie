@@ -32,7 +32,7 @@ class SliderDetailsButtons extends StatelessWidget {
         CircleButton(
           label: "Wróć",
           color: Colors.grey,
-          icon: Icons.arrow_back_ios,
+          icon: Icons.arrow_back_ios_outlined,
           onPressed: () {
             Provider.of<Places>(context, listen: false).showMenuAndZoomOut();
           },
