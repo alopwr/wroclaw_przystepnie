@@ -8,8 +8,8 @@ class LocationPermissionInfoPopup extends StatelessWidget {
       content: const Text(
           "Potrzebujemy twojego pozwolenia na lokalizację, aby wyświetlać miejsca blisko ciebie oraz zapewnić ci możliwość meldowania na punktach tras."),
       actions: <Widget>[
-        FlatButton(
-            onPressed: Navigator.of(context).pop, child: const Text("Ok"))
+        TextButton(
+            onPressed: Navigator.of(context).pop, child: const Text("OK"))
       ],
     );
   }

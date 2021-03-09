@@ -6,6 +6,7 @@ import 'package:sms_autofill/sms_autofill.dart';
 
 import '../helpers/errors_helper.dart';
 import '../providers/auth.dart';
+import '../widgets/logo.dart';
 import '../widgets/phone_card.dart';
 import '../widgets/pin_code_card.dart';
 
@@ -25,7 +26,10 @@ class _LoginScreenState extends State<LoginScreen> {
   bool acceptRulesError = false;
   bool validating = false;
   String errorMessage;
-  var appBar = AppBar(title: const Text("Wrocław Przystępnie"));
+  var appBar = AppBar(
+    shadowColor: Colors.transparent,
+    backgroundColor: Colors.transparent,
+  );
   OverlayEntry overlayEntry;
 
   @override
@@ -37,7 +41,9 @@ class _LoginScreenState extends State<LoginScreen> {
   bool validatePhoneNumber() {
     var val = _phoneNumberController.value.text;
     if (val.length <= 0) {
-      errorMessage = "Numer telefonu nie może być pusty";
+      setState(() {
+        errorMessage = "Numer telefonu nie może być pusty";
+      });
       return false;
     }
     return true;
@@ -71,7 +77,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 title: const Text("Niepoprawny kod"),
                 content: const Text("Wprowadzony kod sms jest niepoprawny."),
                 actions: <Widget>[
-                  FlatButton(
+                  TextButton(
                     child: const Text("OK"),
                     onPressed: () {
                       Navigator.of(context).pop();
@@ -116,7 +122,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 title: Text(ErrorCodeHelper.title(errorCode)),
                 content: Text(ErrorCodeHelper.content(errorCode)),
                 actions: <Widget>[
-                  FlatButton(
+                  TextButton(
                       child: const Text("OK"),
                       onPressed: () {
                         Navigator.of(context).pop();
@@ -164,6 +170,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
     return Scaffold(
       appBar: appBar,
+      backgroundColor: Theme.of(context).backgroundColor,
       body: SizedBox(
         height: max(trueHeight, 470),
         width: mediaQuery.size.width,
@@ -171,10 +178,9 @@ class _LoginScreenState extends State<LoginScreen> {
             child: SizedBox(
           height: max(trueHeight, 470),
           child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
-                // const Logo(),
-                const SizedBox(height: 1),
+                const Logo(),
                 _mode == LoginMode.phoneNumber
                     ? PhoneNumberCard(
                         controller: _phoneNumberController,
@@ -186,6 +192,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         showError: acceptRulesError,
                       )
                     : PinCodeCard(_smsCode, setCode, _submitSmsCode),
+                const SizedBox(height: 1),
               ]),
         )),
       ),
@@ -195,11 +202,13 @@ class _LoginScreenState extends State<LoginScreen> {
   void showPinCode() {
     setState(() {
       appBar = AppBar(
+        shadowColor: Colors.transparent,
+        backgroundColor: Colors.transparent,
         leading: FlatButton(
+          textColor: Theme.of(context).primaryColorDark,
           child: const Icon(Icons.arrow_back),
           onPressed: returnToPhoneInput,
         ),
-        title: const Text("Wrocław Przystępnie"),
       );
       _mode = LoginMode.smsCode;
     });

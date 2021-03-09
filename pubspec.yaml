@@ -67,7 +67,8 @@ flutter:
         - asset: assets/fonts/Helvetica/Helvetica.ttf
         - asset: assets/fonts/Helvetica/Helvetica-Bold.ttf
           weight: 700
-
+  assets:
+    - "assets/kolorywro.png"
 # The following section is specific to Flutter.
 # flutter:
 # The following line ensures that the Material Icons font is

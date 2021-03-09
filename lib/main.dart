@@ -8,8 +8,8 @@ import 'package:sentry/sentry.dart';
 
 import 'helpers/locator.dart';
 import 'providers/auth.dart';
-import 'providers/places.dart';
 import 'providers/paths.dart';
+import 'providers/places.dart';
 import 'providers/user_location.dart';
 import 'screens/login_screen.dart';
 import 'screens/map_screen.dart';
@@ -88,8 +88,25 @@ class MyApp extends StatelessWidget {
         builder: (context, auth, _) => MaterialApp(
           // debugShowCheckedModeBanner: false,
           title: 'Wrocław Przystępnie',
-          theme:
-              ThemeData(primarySwatch: Colors.orange, fontFamily: "Helvetica"),
+          theme: ThemeData(
+              primaryColorDark: Color.fromRGBO(214, 52, 71, 1),
+              primaryColor: Color.fromRGBO(255, 211, 29, 1),
+              accentColor: Color.fromRGBO(255, 211, 29, 1),
+              primaryColorLight: Color.fromRGBO(255, 255, 91, 1),
+              backgroundColor: Color.fromRGBO(246, 238, 223, 1),
+              textButtonTheme: TextButtonThemeData(
+                style: ButtonStyle(
+                  foregroundColor: MaterialStateProperty.all<Color>(
+                    Color.fromRGBO(214, 52, 71, 1),
+                  ),
+                ),
+              ),
+              dialogTheme: DialogTheme(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+              ),
+              fontFamily: "Helvetica"),
           home: GlobalContextProvider(
             key: locator<GlobalKey<GlobalContextProviderState>>(),
             child: auth.loggingProcess

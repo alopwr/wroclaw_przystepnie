@@ -9,7 +9,13 @@ class ProgressBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: <Widget>[
-        Expanded(child: LinearProgressIndicator(value: path.progress)),
+        Expanded(
+            child: LinearProgressIndicator(
+          value: path.progress,
+          backgroundColor: Theme.of(context).primaryColor,
+          valueColor:
+              AlwaysStoppedAnimation(Theme.of(context).primaryColorDark),
+        )),
         const SizedBox(width: 20),
         Text(path.progressLabel, style: Theme.of(context).textTheme.bodyText2)
       ],

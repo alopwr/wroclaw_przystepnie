@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -37,7 +35,7 @@ Future<void> farAwayWarning(BuildContext context) async {
             content: const Text(
                 "Aby oznaczyć punkt jako odwiedziony, musisz znajdować się w promieniu 50 metrów od punktu"),
             actions: <Widget>[
-              FlatButton(
+              TextButton(
                 child: const Text("OK"),
                 onPressed: () {
                   Navigator.of(context).pop();
@@ -77,7 +75,7 @@ Future<void> markAsVisited(
               content: const Text(
                   "Niestety nie udało się oznanaczyć miejsc jako odwiedzione"),
               actions: <Widget>[
-                FlatButton(
+                TextButton(
                   child: const Text("OK"),
                   onPressed: () {
                     Navigator.of(context).pop();

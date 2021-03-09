@@ -49,11 +49,17 @@ class SliderPanel extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              Text(
-                title(places),
-                style: const TextStyle(
-                  fontWeight: FontWeight.normal,
-                  fontSize: 24.0,
+              SizedBox(
+                width: MediaQuery.of(context).size.width * 0.9,
+                child: FittedBox(
+                  fit: BoxFit.scaleDown,
+                  child: Text(
+                    title(places),
+                    style: const TextStyle(
+                      fontWeight: FontWeight.normal,
+                      fontSize: 24.0,
+                    ),
+                  ),
                 ),
               ),
             ],

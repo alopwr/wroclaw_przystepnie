@@ -13,7 +13,9 @@ class Media {
     this.name = jsonMap['name'];
     this.type = jsonMap['type'] == 'image'
         ? MediaType.image
-        : jsonMap['type'] == 'audio' ? MediaType.audio : MediaType.video;
+        : jsonMap['type'] == 'audio'
+            ? MediaType.audio
+            : MediaType.video;
   }
 
   int id;
@@ -44,7 +46,7 @@ class Place with ChangeNotifier {
       },
       icon: isVisited
           ? WidgetToImageConverter.tickedMarkerIcon
-          : WidgetToImageConverter.orangeMarkerIcon,
+          : WidgetToImageConverter.redMarkerIcon,
     );
     this.wrongOrder = jsonMap['wrong_order'];
   }

@@ -11,7 +11,8 @@ class LocationWarningBadge extends StatelessWidget {
     if (displayWarningIcon)
       return FloatingActionButton(
         child: Icon(Icons.location_disabled),
-        backgroundColor: Theme.of(context).primaryColorLight,
+        backgroundColor: Theme.of(context).primaryColor,
+        foregroundColor: Theme.of(context).primaryColorDark,
         mini: true,
         onPressed: () => showDialog(
             context: context,
@@ -20,8 +21,8 @@ class LocationWarningBadge extends StatelessWidget {
                   content: const Text(
                       "Niestety aplikacja nie ma dostępu do twoich danych lokalizacyjnych. Sprawdź, czy usługi lokalizacyjne są włączone, a wszystkie pozwolenia aplikacji przydzielone."),
                   actions: <Widget>[
-                    FlatButton(
-                      child: const Text("Ok"),
+                    TextButton(
+                      child: const Text("OK"),
                       onPressed: () {
                         Navigator.of(context).pop();
                       },

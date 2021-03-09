@@ -18,12 +18,12 @@ class SliderMenuButtons extends StatelessWidget {
           Colors.blue,
         ),
         PlaceholderButton(
-          Colors.green,
+          Theme.of(context).primaryColor,
         ),
         CircleButton(
           label: "Losuj",
           icon: MyCustomIcons.dice_3,
-          color: Colors.red,
+          color: Theme.of(context).primaryColorDark,
           onPressed: Provider.of<Places>(context, listen: false).detailRandom,
         ),
         CircleButton(

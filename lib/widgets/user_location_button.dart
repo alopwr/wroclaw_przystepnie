@@ -31,9 +31,9 @@ class _UserLocationButtonState extends State<UserLocationButton> {
                     child: CircularProgressIndicator(strokeWidth: 3.0))),
           ],
         ),
-        secondChild: const Icon(
+        secondChild: Icon(
           Icons.gps_fixed,
-          color: Colors.blue,
+          color: Colors.black.withOpacity(0.75),
         ),
         crossFadeState:
             loading ? CrossFadeState.showFirst : CrossFadeState.showSecond,

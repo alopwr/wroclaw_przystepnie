@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../providers/places.dart';
 import '../providers/paths.dart';
+import '../providers/places.dart';
 
 class OfflineWarningBadge extends StatelessWidget {
   @override
@@ -10,11 +10,11 @@ class OfflineWarningBadge extends StatelessWidget {
     if (Provider.of<Places>(context).offlineBadge ||
         Provider.of<Paths>(context).offlineBadge)
       return FloatingActionButton(
-        child: const Icon(
+        child: Icon(
           Icons.error_outline,
-          color: Colors.white,
+          color: Theme.of(context).primaryColor,
         ),
-        backgroundColor: Theme.of(context).errorColor,
+        backgroundColor: Theme.of(context).primaryColorDark,
         mini: true,
         onPressed: () => showDialog(
             context: context,
@@ -23,8 +23,8 @@ class OfflineWarningBadge extends StatelessWidget {
                   content: const Text(
                       "Niestety nie udało się odświeżyć danych z serwera. Wyświetlane są dane historyczne."),
                   actions: <Widget>[
-                    FlatButton(
-                      child: const Text("Ok"),
+                    TextButton(
+                      child: const Text("OK"),
                       onPressed: () {
                         Navigator.of(context).pop();
                       },

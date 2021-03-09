@@ -106,17 +106,15 @@ class MapScreenState extends State<MapScreen> {
           parallaxOffset: .5,
           body: Stack(
             children: <Widget>[
-              MapWidget(),
+              Container(
+                  transform: Matrix4.diagonal3Values(1.05, 1.05, 1),
+                  child: MapWidget()),
               Positioned(
-                  top: _pathBadgeTop + mediaQuery.padding.top,
-                  left: 10,
-                  child: CurrentPathChip()),
+                  top: _pathBadgeTop, left: 10, child: CurrentPathChip()),
               Positioned(
-                  top: _pathBadgeTop + 50 + mediaQuery.padding.top,
-                  right: 10,
-                  child: NextPlaceChip()),
+                  top: _pathBadgeTop + 50, right: 10, child: NextPlaceChip()),
               Positioned(
-                  top: _pathBadgeTop + 50 + mediaQuery.padding.top,
+                  top: _pathBadgeTop + 50,
                   left: 10,
                   child: PreviousPlaceChip()),
             ],

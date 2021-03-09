@@ -90,7 +90,7 @@ class Auth with ChangeNotifier {
     );
 
     var decoded = json.decode(utf8.decode(response.bodyBytes));
-    if (decoded["reason"] == "OTP doesn't exist") return false;
+    if (decoded["token"] == null) return false;
 
     SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.setStringList("auth", [decoded["token"], phoneNumber]);

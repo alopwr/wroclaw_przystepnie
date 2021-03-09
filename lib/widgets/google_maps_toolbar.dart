@@ -36,7 +36,7 @@ class GoogleMapsToolbar extends StatelessWidget {
         title: const Text("Niepowodzenie"),
         content: const Text("Nie udało się otworzyć Google Maps"),
         actions: <Widget>[
-          FlatButton(
+          TextButton(
             child: const Text("Ok"),
             onPressed: () => Navigator.of(context).pop(),
           )
@@ -55,11 +55,13 @@ class GoogleMapsToolbar extends StatelessWidget {
       child: Row(
         children: <Widget>[
           IconButton(
+            color: Colors.black.withOpacity(0.75),
             icon: const Icon(Icons.directions),
             iconSize: 25,
             onPressed: () => showDirections(activePlace),
           ),
           IconButton(
+            color: Colors.black.withOpacity(0.75),
             icon: const Icon(MyCustomIcons.google_maps),
             iconSize: 25,
             onPressed: () => showPlace(activePlace),
