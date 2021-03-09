@@ -59,33 +59,14 @@ Future<void> markAsVisited(
           .placeDistanceValidation(location);
 
   //temporary workaround
+  //TODO: uncomment this workaround
   // if (!correctDistance) {
   //   await farAwayWarning(context);
   //   return;
   // }
 
-  var success = await Provider.of<Places>(context, listen: false)
-      .markAsVisited(id, context);
+  await Provider.of<Places>(context, listen: false).markAsVisited(id, context);
 
-  if (!success) {
-    Navigator.of(context).popUntil((route) => route.isFirst);
-    showDialog(
-        context: context,
-        builder: (context) => AlertDialog(
-              title: const Text("Niepowodzenie"),
-              content: const Text(
-                  "Niestety nie udało się oznanaczyć miejsc jako odwiedzione"),
-              actions: <Widget>[
-                TextButton(
-                  child: const Text("OK"),
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                )
-              ],
-            ));
-    return;
-  }
   var canVibrate = false;
   if (!kIsWeb) canVibrate = await Vibration.hasVibrator();
   Navigator.of(context).popUntil((route) => route.isFirst);

@@ -192,18 +192,35 @@ class Places with ChangeNotifier {
     };
   }
 
-  Future<bool> markAsVisited(int id, [BuildContext context]) async {
-    var success = await HttpHelper.markAsVisited(id, auth.headers, context);
-    if (!success) return false;
-
+  Future<void> markAsVisited(int id, [BuildContext context]) async {
     var placeId = places.indexWhere((element) => element.id == id);
     _places[placeId] = places[placeId]..isVisited = true;
     _places[placeId].refreshMarker(showDetails);
     refreshingBadge = true;
 
     notifyListeners();
-    refreshPlaces();
-    return true;
+
+    HttpHelper.markAsVisited(id, auth.headers, context)
+        .then(
+      (value) => refreshPlaces(),
+    )
+        .catchError((_) {
+      showDialog(
+          context: context,
+          builder: (context) => AlertDialog(
+                title: const Text("Niepowodzenie"),
+                content: const Text(
+                    "Niestety nie udało się oznanaczyć miejsc jako odwiedzione"),
+                actions: <Widget>[
+                  TextButton(
+                    child: const Text("OK"),
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                  )
+                ],
+              ));
+    });
   }
 
   void allowNext(int nextId) {
