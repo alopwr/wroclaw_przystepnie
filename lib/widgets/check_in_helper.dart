@@ -4,6 +4,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:vibration/vibration.dart';
 
+import '../main.dart';
 import '../providers/places.dart';
 import '../providers/user_location.dart';
 import 'custom_icons.dart';
@@ -94,7 +95,7 @@ Future<void> markAsVisited(
     barrierDismissible: false,
     builder: (context) => const Icon(
       MyCustomIcons.map_marker_check,
-      color: Colors.green,
+      color: MyApp.green,
       size: 70,
     ),
   );

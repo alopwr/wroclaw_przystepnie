@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../main.dart';
 import '../providers/places.dart';
 import 'check_in_helper.dart';
 import 'circle_button.dart';
@@ -23,7 +24,7 @@ class SliderDetailsButtons extends StatelessWidget {
                   ? "Odwiedź najpierw\npoprzednie punkty"
                   : "Oznacz jako\nodwiedzone",
           color:
-              place.isVisited || place.wrongOrder ? Colors.grey : Colors.green,
+              place.isVisited || place.wrongOrder ? Colors.grey : MyApp.green,
           icon: place.wrongOrder ? Icons.close : Icons.check,
           onPressed: place.isVisited || place.wrongOrder
               ? null

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../main.dart';
 import '../providers/places.dart';
 import 'custom_icons.dart';
 
@@ -45,7 +46,7 @@ class PlacesOnPathList extends StatelessWidget {
                           : Icons.place,
                       size: 28,
                       color: place.isVisited
-                          ? Colors.green
+                          ? MyApp.green
                           : Theme.of(context).primaryColorDark,
                     ),
                     onTap: () => places.showDetails(place.id),

@@ -178,7 +178,7 @@ class MapScreenState extends State<MapScreen> {
         //   key: capturingKey,
         //   child: Icon(
         //     MyCustomIcons.map_marker_check,
-        //     color: Colors.green,
+        //     color: MyApp.green,
         //     size: 42,
         //   ),
         // ),

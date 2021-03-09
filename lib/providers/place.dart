@@ -45,7 +45,7 @@ class Place with ChangeNotifier {
         showDetails(id);
       },
       icon: isVisited
-          ? WidgetToImageConverter.tickedMarkerIcon
+          ? WidgetToImageConverter.darkTickedMarkerIcon
           : WidgetToImageConverter.redMarkerIcon,
     );
     this.wrongOrder = jsonMap['wrong_order'];

@@ -12,7 +12,12 @@ class PlaceholderButton extends StatelessWidget {
         children: <Widget>[
           Container(
             padding: const EdgeInsets.all(16.0),
-            child: SizedBox(height: 25, width: 25, child: Placeholder()),
+            child: SizedBox(
+                height: 25,
+                width: 25,
+                child: Placeholder(
+                  color: Colors.black.withOpacity(0.75),
+                )),
             decoration: BoxDecoration(
                 color: color,
                 shape: BoxShape.circle,
@@ -22,7 +27,12 @@ class PlaceholderButton extends StatelessWidget {
                 ]),
           ),
           const SizedBox(height: 12.0),
-         SizedBox(height: 12, width: 25, child: Placeholder())
+          SizedBox(
+              height: 12,
+              width: 25,
+              child: Placeholder(
+                color: Colors.black.withOpacity(0.75),
+              ))
         ],
       ),
     );

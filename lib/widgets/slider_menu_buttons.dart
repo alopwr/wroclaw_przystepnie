@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../main.dart';
 import '../providers/auth.dart';
 import '../providers/places.dart';
 import 'circle_button.dart';
@@ -15,7 +16,7 @@ class SliderMenuButtons extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: <Widget>[
         PlaceholderButton(
-          Colors.blue,
+          MyApp.green,
         ),
         PlaceholderButton(
           Theme.of(context).primaryColor,
