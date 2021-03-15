@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:vibration/vibration.dart';
@@ -53,33 +54,77 @@ Future<void> markAsVisited(
     barrierDismissible: false,
     builder: (context) => const Center(child: CircularProgressIndicator()),
   );
+  try {
+    var correctDistance =
+        await Provider.of<UserLocationManager>(context, listen: false)
+            .placeDistanceValidation(location);
 
-  var correctDistance =
-      await Provider.of<UserLocationManager>(context, listen: false)
-          .placeDistanceValidation(location);
+    //temporary workaround
+    //TODO: uncomment this workaround
+    // if (!correctDistance) {
+    //   await farAwayWarning(context);
+    //   return;
+    // }
+    await Provider.of<Places>(context, listen: false)
+        .markAsVisited(id, context);
 
-  //temporary workaround
-  //TODO: uncomment this workaround
-  // if (!correctDistance) {
-  //   await farAwayWarning(context);
-  //   return;
-  // }
+    var canVibrate = false;
+    if (!kIsWeb) canVibrate = await Vibration.hasVibrator();
+    Navigator.of(context).popUntil((route) => route.isFirst);
+    if (canVibrate) Vibration.vibrate();
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (context) => const Icon(
+        MyCustomIcons.map_marker_check,
+        color: MyApp.green,
+        size: 70,
+      ),
+    );
+    await Future.delayed(Duration(milliseconds: 500));
+    Navigator.of(context).popUntil((route) => route.isFirst);
+  } on PermissionDeniedException {
+    bool canVibrate = false;
+    if (!kIsWeb) canVibrate = await Vibration.hasVibrator();
+    if (canVibrate) Vibration.vibrate();
+    Navigator.of(context).popUntil((route) => route.isFirst);
 
-  await Provider.of<Places>(context, listen: false).markAsVisited(id, context);
-
-  var canVibrate = false;
-  if (!kIsWeb) canVibrate = await Vibration.hasVibrator();
-  Navigator.of(context).popUntil((route) => route.isFirst);
-  if (canVibrate) Vibration.vibrate();
-  showDialog(
-    context: context,
-    barrierDismissible: false,
-    builder: (context) => const Icon(
-      MyCustomIcons.map_marker_check,
-      color: MyApp.green,
-      size: 70,
-    ),
-  );
-  await Future.delayed(Duration(milliseconds: 500));
-  Navigator.of(context).popUntil((route) => route.isFirst);
+    showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+              title: const Text("Błąd pozwoleń lokalizacji"),
+              content: Text(
+                  "Zezwól na dostęp do lokalizacji, aby potwierdzić obecność na punkcie."),
+              actions: <Widget>[
+                TextButton(
+                  child: const Text("OK"),
+                  onPressed: () {
+                    Navigator.of(context).popUntil((route) => route.isFirst);
+                  },
+                )
+              ],
+            ));
+  } on LocationServiceDisabledException {
+    bool canVibrate = false;
+    if (!kIsWeb) canVibrate = await Vibration.hasVibrator();
+    if (canVibrate) Vibration.vibrate();
+    Navigator.of(context).popUntil((route) => route.isFirst);
+    showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+              title: const Text("Błąd lokalizacji"),
+              content: Text(
+                  "Włącz usługi lokalizacyjne, aby potwierdzić obecność na punkcie."),
+              actions: <Widget>[
+                TextButton(
+                  child: const Text("OK"),
+                  onPressed: () {
+                    Navigator.of(context).popUntil((route) => route.isFirst);
+                  },
+                )
+              ],
+            ));
+  } catch (e) {
+    Navigator.of(context).popUntil((route) => route.isFirst);
+  }
 }

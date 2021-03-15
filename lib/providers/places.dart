@@ -104,6 +104,7 @@ class Places with ChangeNotifier {
 
   void focusOnVisible() {
     final bounds = visibleMarkersBounds;
+    if (bounds == null) return;
     googleMapsController?.animateCamera(CameraUpdate.newLatLngBounds(
       LatLngBounds(
         southwest: bounds['southwest'],
@@ -166,7 +167,7 @@ class Places with ChangeNotifier {
   void onMapCreated(GoogleMapController controller) {
     googleMapsController = controller;
     googleMapsController.setMapStyle(mapStyle);
-    Future.delayed(Duration(milliseconds: 100), focusOnVisible);
+    Future.delayed(Duration(milliseconds: 300), focusOnVisible);
   }
 
   List<int> get placesIds => places.map((e) => e.id).toList();
@@ -180,8 +181,8 @@ class Places with ChangeNotifier {
   Map<String, LatLng> get visibleMarkersBounds {
     List<double> lats = [];
     List<double> longs = [];
-
-    visiblePlaces.forEach((element) {
+    if (visiblePlaces == null || visiblePlaces.length == 0) return null;
+    visiblePlaces?.forEach((element) {
       lats.add(element.location.latitude);
       longs.add(element.location.longitude);
     });
