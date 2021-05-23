@@ -1,6 +1,6 @@
-import 'package:expand_widget/expand_widget.dart';
 import 'package:flutter/material.dart';
 
+import 'expander.dart';
 import 'places_on_path_list.dart';
 import 'sticky_section.dart';
 
@@ -18,9 +18,10 @@ class SliderPathBody extends StatelessWidget {
             child: Align(
               alignment: Alignment.topLeft,
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 24),
-                child: ExpandText(description),
-              ),
+                  padding: const EdgeInsets.symmetric(horizontal: 24),
+                  child: Expander(
+                    body: description,
+                  )),
             ),
           ),
           const SizedBox(height: 18),
