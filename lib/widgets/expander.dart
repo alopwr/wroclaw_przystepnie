@@ -17,13 +17,14 @@ class _ExpanderState extends State<Expander> {
       return Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          MarkdownBody(data: widget.body.split(" ").getRange(0, 50).join(" ")),
-          TextButton.icon(
-              onPressed: () => setState(() {
-                    expanded = true;
-                  }),
-              icon: const Icon(Icons.keyboard_arrow_down),
-              label: Text("Czytaj więcej"))
+          MarkdownBody(data: widget.body.split(" ").take(50).join(" ")),
+          if (widget.body.split(" ").length > 50)
+            TextButton.icon(
+                onPressed: () => setState(() {
+                      expanded = true;
+                    }),
+                icon: const Icon(Icons.keyboard_arrow_down),
+                label: Text("Czytaj więcej"))
         ],
       );
     else
