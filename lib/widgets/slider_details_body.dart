@@ -16,10 +16,18 @@ class SliderDetailsBody extends StatelessWidget {
           Align(
             alignment: Alignment.topLeft,
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 24),
+              padding: const EdgeInsets.symmetric(horizontal: 30),
               child: MarkdownBody(
                 data: place.description,
-                styleSheet: MarkdownStyleSheet(textScaleFactor: 1.2),
+                styleSheet: MarkdownStyleSheet(
+                  textScaleFactor: 1.2,
+                ),
+                imageBuilder: (uri, title, alt) {
+                  return Padding(
+                    padding: const EdgeInsets.all(30.0),
+                    child: Image.network(uri.toString()),
+                  );
+                },
               ),
             ),
           ),
