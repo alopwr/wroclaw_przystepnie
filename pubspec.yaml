@@ -40,6 +40,7 @@ dependencies:
   vibration: ^1.7.3
   get_it: ^6.0.0
   flutter_markdown: ^0.6.2
+  package_info: ^2.0.0
 
 dependency_overrides:
   path_provider: ^2.0.0

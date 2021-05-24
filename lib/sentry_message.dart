@@ -1,16 +1,18 @@
 import 'dart:io';
 
 import 'package:device_info/device_info.dart';
+import 'package:package_info/package_info.dart';
 import 'package:sentry/sentry.dart';
 
 final DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
 
 Future<Event> getSentryEnvEvent(dynamic exception, dynamic stackTrace) async {
   /// return Event with IOS extra information to send it to Sentry
+  PackageInfo packageInfo = await PackageInfo.fromPlatform();
   if (Platform.isIOS) {
     final IosDeviceInfo iosDeviceInfo = await deviceInfo.iosInfo;
     return Event(
-      release: '1.0.0',
+      release: packageInfo.version,
       environment: 'production', // replace it as it's desired
       extra: <String, dynamic>{
         'name': iosDeviceInfo.name,
@@ -31,7 +33,7 @@ Future<Event> getSentryEnvEvent(dynamic exception, dynamic stackTrace) async {
   if (Platform.isAndroid) {
     final AndroidDeviceInfo androidDeviceInfo = await deviceInfo.androidInfo;
     return Event(
-      release: '1.0.0',
+      release: packageInfo.version,
       environment: 'production', // replace it as it's desired
       extra: <String, dynamic>{
         'type': androidDeviceInfo.type,
