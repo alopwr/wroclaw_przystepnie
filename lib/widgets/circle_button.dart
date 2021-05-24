@@ -1,9 +1,16 @@
 import 'package:flutter/material.dart';
 
 class CircleButton extends StatelessWidget {
-  CircleButton({this.icon, this.label, this.color, this.onPressed});
+  CircleButton({IconData icon, this.label, this.color, this.onPressed}) {
+    this.icon = Icon(
+      icon,
+      color: Colors.white,
+    );
+  }
+  CircleButton.withAnimatedIcon(
+      {AnimatedIcon this.icon, this.label, this.color, this.onPressed});
 
-  final IconData icon;
+  Widget icon;
   final String label;
   final Color color;
   final Function onPressed;
@@ -15,11 +22,10 @@ class CircleButton extends StatelessWidget {
       child: Column(
         children: <Widget>[
           Container(
-            padding: const EdgeInsets.all(16.0),
-            child: Icon(
-              icon,
-              color: Colors.white,
-            ),
+            height: (16 * 2 + 24).toDouble(),
+            width: (16 * 2 + 24).toDouble(),
+            // padding: const EdgeInsets.all(16.0),
+            child: Center(child: icon),
             decoration: BoxDecoration(
                 color: color,
                 shape: BoxShape.circle,
@@ -29,7 +35,12 @@ class CircleButton extends StatelessWidget {
                 ]),
           ),
           const SizedBox(height: 12.0),
-          Text(label),
+          ConstrainedBox(
+              constraints: BoxConstraints(maxWidth: double.infinity),
+              child: Text(
+                label,
+                // overflow: TextOverflow.ellipsis,
+              )),
         ],
       ),
     );

@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 
 import '../main.dart';
 import '../providers/places.dart';
+import 'audio_circle.dart';
 import 'check_in_helper.dart';
 import 'circle_button.dart';
 
@@ -17,6 +18,10 @@ class SliderDetailsButtons extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: <Widget>[
+        if (place.audioSet.length > 0)
+          ...[place.audioSet[0]]
+              .map((audio) => Flexible(child: AudioCircle(audio)))
+              .toList(),
         CircleButton(
           label: place.isVisited
               ? "Odwiedzone"

@@ -10,7 +10,7 @@ import 'package:provider/provider.dart';
 import '../main.dart';
 import '../providers/paths.dart';
 
-const API_MASTER_URL = "https://wroclaw.skica.dev/v0";
+const API_MASTER_URL = "https://wroclaw-przystepnie.herokuapp.com/v0";
 
 class HttpHelper {
   static Future<List<Map<String, dynamic>>> fetchPlaces(
