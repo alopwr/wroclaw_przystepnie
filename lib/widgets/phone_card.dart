@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:sms_autofill/sms_autofill.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class PhoneNumberCard extends StatelessWidget {
   const PhoneNumberCard({
@@ -76,25 +75,25 @@ class PhoneNumberCard extends StatelessWidget {
                             decoration: TextDecoration.underline),
                       ),
                       onTap: () async {
-                        var url = 'https://www.nasa.gov';
-                        if (await canLaunch(url)) {
-                          await launch(url);
-                        } else {
-                          showDialog(
-                            context: context,
-                            builder: (context) => AlertDialog(
-                              content: Text("Nie udało się otworzyć $url."),
-                              actions: <Widget>[
-                                TextButton(
-                                  child: const Text("OK"),
-                                  onPressed: () {
-                                    Navigator.of(context).pop();
-                                  },
-                                )
-                              ],
-                            ),
-                          );
-                        }
+                        // var url = 'https://www.nasa.gov';
+                        // if (await canLaunch(url)) {
+                        //   await launch(url);
+                        // } else {
+                        //   showDialog(
+                        //     context: context,
+                        //     builder: (context) => AlertDialog(
+                        //       content: Text("Nie udało się otworzyć $url."),
+                        //       actions: <Widget>[
+                        //         TextButton(
+                        //           child: const Text("OK"),
+                        //           onPressed: () {
+                        //             Navigator.of(context).pop();
+                        //           },
+                        //         )
+                        //       ],
+                        //     ),
+                        //   );
+                        // }
                       },
                     )
                   ],
