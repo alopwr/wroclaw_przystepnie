@@ -3,10 +3,6 @@ import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:provider/provider.dart';
 
 import '../providers/places.dart';
-import 'audio_widget.dart';
-import 'expander.dart';
-import 'photo_gallery.dart';
-import 'sticky_section.dart';
 
 class SliderDetailsBody extends StatelessWidget {
   const SliderDetailsBody();
@@ -17,43 +13,32 @@ class SliderDetailsBody extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          if (place.description.length > 0)
-            StickySection(
-              title: "Opis:",
-              child: Align(
-                alignment: Alignment.topLeft,
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 24),
-                  child: place.mediaGallerySet.length > 0 &&
-                          place.audioSet.length > 0
-                      ? Expander(body: place.description)
-                      : MarkdownBody(data: place.description),
-                ),
+          Align(
+            alignment: Alignment.topLeft,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 24),
+              child: MarkdownBody(
+                data: place.description,
+                styleSheet: MarkdownStyleSheet(textScaleFactor: 1.2),
               ),
             ),
-          if (place.mediaGallerySet.length > 0) PhotoGallery(place),
-          // StickySection(
-          //   title: "Multimedia:",
-          //   child: ,
-          // ),
-          const SizedBox(height: 10),
+          ),
+          // if (place.mediaGallerySet.length > 0) PhotoGallery(place),
+          // const SizedBox(height: 10),
+          // const SizedBox(height: 10),
 
-          const SizedBox(height: 10),
+          // if (place.audioSet.length > 0)
+          //   Padding(
+          //     padding: const EdgeInsets.symmetric(horizontal: 24),
+          //     child: Column(
+          //         mainAxisSize: MainAxisSize.min,
+          //         children: [
+          //           ...place.audioSet,
+          //           ...place.audioSet,
+          //           ...place.audioSet
+          //         ].map((audio) => AudioWidget(audio)).toList()),
+          //   ),
 
-          if (place.audioSet.length > 0)
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 24),
-              child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    ...place.audioSet,
-                    ...place.audioSet,
-                    ...place.audioSet
-                  ].map((audio) => AudioWidget(audio)).toList()),
-            ),
-          // StickySection(
-          //     title: "Audio:",
-          //     child: ),
           const SizedBox(height: 10),
         ],
       ),

@@ -17,8 +17,11 @@ class _ExpanderState extends State<Expander> {
       return Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          MarkdownBody(data: widget.body.split(" ").take(50).join(" ")),
-          if (widget.body.split(" ").length > 50)
+          MarkdownBody(
+            data: widget.body.split(" ").take(30).join(" "),
+            styleSheet: MarkdownStyleSheet(textScaleFactor: 1.2),
+          ),
+          if (widget.body.split(" ").length > 30)
             TextButton.icon(
                 onPressed: () => setState(() {
                       expanded = true;
@@ -31,7 +34,10 @@ class _ExpanderState extends State<Expander> {
       return Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          MarkdownBody(data: widget.body),
+          MarkdownBody(
+            data: widget.body,
+            styleSheet: MarkdownStyleSheet(textScaleFactor: 1.2),
+          ),
           TextButton.icon(
               onPressed: () => setState(() {
                     expanded = false;
