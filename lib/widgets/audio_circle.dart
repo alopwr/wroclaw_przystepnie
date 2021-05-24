@@ -78,7 +78,7 @@ class _AudioCircleState extends State<AudioCircle>
       onPressed: _isPlaying
           ? () => audioPlayer.pause()
           : () => audioPlayer.play(widget.audio.url, stayAwake: true),
-      label: (_isPlaying ? "Pause " : " Play ") + widget.audio.name,
+      label: (_isPlaying ? "Pauzuj " : "Odtwórz ") + widget.audio.name,
       color: Theme.of(context).primaryColor,
     );
 

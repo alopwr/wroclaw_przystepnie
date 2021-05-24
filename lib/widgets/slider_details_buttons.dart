@@ -19,7 +19,7 @@ class SliderDetailsButtons extends StatelessWidget {
       // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: <Widget>[
         if (place.audioSet.length > 0)
-          ...[place.audioSet[0]]
+          ...place.audioSet
               .map((audio) => Flexible(child: AudioCircle(audio)))
               .toList(),
         CircleButton(
