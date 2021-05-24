@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:provider/provider.dart';
 
 import '../providers/places.dart';
@@ -23,7 +24,10 @@ class SliderDetailsBody extends StatelessWidget {
                 alignment: Alignment.topLeft,
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 24),
-                  child: Expander(body: place.description),
+                  child: place.mediaGallerySet.length > 0 &&
+                          place.audioSet.length > 0
+                      ? Expander(body: place.description)
+                      : MarkdownBody(data: place.description),
                 ),
               ),
             ),
