@@ -11,13 +11,14 @@ import 'package:sliding_up_panel/sliding_up_panel.dart';
 
 import '../helpers/http_helper.dart';
 import '../helpers/locator.dart';
+import '../main.dart';
 import '../widgets/global_dialogs.dart';
-import '../widgets/wrong_order_popup.dart';
 import '../widgets/map_style.dart';
+import '../widgets/wrong_order_popup.dart';
 import 'auth.dart';
-import 'place.dart';
 import 'path.dart';
 import 'paths.dart';
+import 'place.dart';
 
 class Places with ChangeNotifier {
   Places({this.auth});
@@ -205,13 +206,14 @@ class Places with ChangeNotifier {
         .then(
       (value) => refreshPlaces(),
     )
-        .catchError((_) {
+        .catchError((e) {
+      reportSentryError(e, null);
       showDialog(
           context: context,
           builder: (context) => AlertDialog(
                 title: const Text("Niepowodzenie"),
                 content: const Text(
-                    "Niestety nie udało się oznanaczyć miejsc jako odwiedzione"),
+                    "Niestety nie udało się oznanaczyć miejsca jako odwiedzione"),
                 actions: <Widget>[
                   TextButton(
                     child: const Text("OK"),
